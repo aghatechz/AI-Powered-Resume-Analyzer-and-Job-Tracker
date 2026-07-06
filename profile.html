@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - AI Resume Tracker</title>
+  <link rel="stylesheet" href="css/profile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-shapes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+   <div class="sidebar">
+    <div class="logo">
+      <img src="assets/Group 1686550876.png" alt="Logo">
+      <h2>AI Resume Tracker</h2>
+    </div>
+    <ul class="menu">
+      <li>
+        <a href="dashboard.html">
+          <i class="fas fa-th-large"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li> 
+         <a href="career.html">
+          <i class="fas fa-file-alt"></i>
+          <span>career Assistant</span>
+        </a>
+      </li>
+      <li>
+        <a href="resume.html">
+          <i class="fas fa-file-alt"></i>
+          <span>Resume Analyzer</span>
+        </a>
+      </li>
+      <li>
+        <a href="jobs.html">
+          <i class="fas fa-briefcase"></i>
+          <span>Jobs Tracker</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="profile.html">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="settings.html">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+      <li class="logout">
+        <a href="home.html">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+
+     <header>
+      <div class="header-left">
+        <h1>Profile</h1>
+        <p class="subtitle">Manage your professional information</p>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+        <div class="notifications">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="user-info">
+          <div class="user-details">
+            <span class="user-name" id="headerUserName">John Doe</span>
+          </div>
+          <img id="headerAvatar" alt="User Avatar"
+            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+        </div>
+      </div>
+    </header>
+
+     <div id="loadingOverlay" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Loading profile...</p>
+    </div>
+
+     <div id="notificationToast" class="notification-toast">
+      <i class="fas fa-check-circle"></i>
+      <span id="toastMessage">Success!</span>
+    </div>
+
+     <div class="profile-container">
+      
+       <div class="cover-photo-section">
+        <img id="coverPhoto" src="https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=300&fit=crop" alt="Cover Photo">
+        <div class="cover-photo-overlay">
+          <button class="btn-upload-cover" id="btnUploadCover">
+            <i class="fas fa-camera"></i>
+            Change Cover Photo
+          </button>
+          <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;">
+        </div>
+        
+         <div class="profile-info-overlay">
+          <div class="profile-avatar">
+            <img id="profileAvatar" alt="Profile Picture"
+              onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff&size=150'">
+            <button class="btn-change-avatar" id="btnChangeAvatar">
+              <i class="fas fa-camera"></i>
+            </button>
+            <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+          </div>
+          <div class="profile-basic-info">
+            <h2 id="profileName">John Doe</h2>
+            <p id="profileTitle">Senior Software Engineer</p>
+            <p id="profileLocation"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+          </div>
+          <div class="profile-actions">
+            <button class="btn-primary" id="btnEditProfile">
+              <i class="fas fa-edit"></i>
+              Edit Profile
+            </button>
+            <button class="btn-secondary" id="btnShareProfile">
+              <i class="fas fa-share-alt"></i>
+              Share
+            </button>
+          </div>
+        </div>
+      </div>
+       <div class="profile-grid">
+
+         <div class="profile-card">
+          <div class="card-header">
+            <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+            <button class="btn-edit" data-section="contact">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="info-row">
+              <i class="fas fa-envelope"></i>
+              <span id="contactEmail">john.doe@example.com</span>
+            </div>
+            <div class="info-row">
+              <i class="fas fa-phone"></i>
+              <span id="contactPhone">+1 (555) 123-4567</span>
+            </div>
+            <div class="info-row">
+              <i class="fas fa-globe"></i>
+              <span id="contactWebsite">www.johndoe.com</span>
+            </div>
+            <div class="info-row">
+              <i class="fab fa-linkedin"></i>
+              <span id="contactLinkedin">linkedin.com/in/johndoe</span>
+            </div>
+            <div class="info-row">
+              <i class="fab fa-github"></i>
+              <span id="contactGithub">github.com/johndoe</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="profile-card">
+          <div class="card-header">
+            <h3><i class="fas fa-user"></i> About</h3>
+            <button class="btn-edit" data-section="about">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+          <div class="card-content">
+            <p id="aboutText">Passionate software engineer with 8+ years of experience building scalable web applications. Specialized in React, Node.js, and cloud technologies.</p>
+          </div>
+        </div>
+
+         <div class="profile-card full-width">
+          <div class="card-header">
+            <h3><i class="fas fa-code"></i> Skills</h3>
+            <button class="btn-edit" data-section="skills">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="skills-grid" id="skillsGrid">
+             </div>
+          </div>
+        </div>
+
+         <div class="profile-card full-width">
+          <div class="card-header">
+            <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+            <button class="btn-edit" data-section="experience">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="timeline" id="experienceTimeline">
+             </div>
+          </div>
+        </div>
+
+         <div class="profile-card full-width">
+          <div class="card-header">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            <button class="btn-edit" data-section="education">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="timeline" id="educationTimeline">
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+   <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Edit Section</h3>
+        <button class="modal-close" id="btnCloseModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+       </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCancelModal">Cancel</button>
+        <button class="btn-primary" id="btnSaveModal">
+          <i class="fas fa-save"></i>
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Preview Modal -->
+<div id="imagePreviewModal" class="image-preview-modal">
+  <span id="closePreview" class="close-preview">&times;</span>
+  <img id="previewImage" src="" alt="Preview">
+</div>
+
+
+  <script src="js/profile.js"></script>
+
+</body>
+
+</html>

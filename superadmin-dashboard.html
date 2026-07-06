@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Admin Dashboard</title>
+  <link rel="stylesheet" href="css/superadmin-dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/logout.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-shapes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/Group 1686550876.png" alt="Logo">
+      <h2>Super Admin</h2>
+    </div>
+    <ul class="menu">
+      <li class="active"><a href="superadmin-dashboard.html"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+      </li>
+      <li><a href="manage-users.html"><i class="fas fa-users"></i> <span>Manage Users</span></a></li>
+      <li><a href="manage-admins.html"><i class="fas fa-user-shield"></i> <span>Manage Admins</span></a></li>
+      <li><a href="#" onclick="event.preventDefault(); showInviteModal()"><i class="fas fa-envelope"></i> <span>Invite
+            Admin</span></a></li>
+      <li><a href="#settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+      <li><a href="reports.html"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+      <li class="logout"><a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span></a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+
+    <header>
+      <div class="header-left">
+        <h1>Super Admin Dashboard</h1>
+        <p class="subtitle">Welcome back! Here's what's happening today</p>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search anything...">
+        </div>
+        <div class="notifications" onclick="toggleNotifications()">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="user-info" onclick="toggleUserMenu()">
+          <div class="user-details">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+          <img src="https://ui-avatars.com/api/?name=Admin+User&background=7f265b&color=fff" alt="User">
+        </div>
+      </div>
+    </header>
+
+    <div class="cards">
+      <div class="card card-purple">
+        <div class="card-icon"><i class="fas fa-users"></i></div>
+        <div class="card-content">
+          <h3>Total Users</h3>
+          <div class="card-number" id="totalUsers">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> Total users</div>
+        </div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+        <div class="card-content">
+          <h3>Total Admins</h3>
+          <div class="card-number" id="totalAdmins">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> Total admins</div>
+        </div>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon"><i class="fas fa-envelope"></i></div>
+        <div class="card-content">
+          <h3>Pending Invites</h3>
+          <div class="card-number" id="pendingInvites">0</div>
+          <div class="card-trend down"><i class="fas fa-arrow-down"></i> invites</div>
+        </div>
+      </div>
+      <div class="card card-green">
+        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="card-content">
+          <h3>Active Sessions</h3>
+          <div class="card-number" id="activeSessions">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> active Sessions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="analytics-section">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-area"></i> User Growth Analytics</h2>
+          <select class="time-filter" id="timeFilter">
+            <option value="7">Last 7 Days</option>
+            <option value="30" selected>Last 30 Days</option>
+            <option value="90">Last 90 Days</option>
+          </select>
+        </div>
+        <div class="chart-container">
+          <canvas id="userGrowthChart"></canvas>
+        </div>
+        <div class="analytics-stats">
+          <div class="stat-item">
+            <span class="stat-label">User Engagement Rate</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 78%"></div>
+            </div>
+            <span class="stat-value">78%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Admin Activity Rate</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 92%"></div>
+            </div>
+            <span class="stat-value">92%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">System Performance</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 85%"></div>
+            </div>
+            <span class="stat-value">85%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-section">
+        <div class="section-header">
+          <h2><i class="fas fa-history"></i> Recent Activity</h2>
+          <a href="#" class="view-all">View All</a>
+        </div>
+        <div class="activity-list" id="activityList">
+          <div class="activity-item">
+            <div class="activity-icon purple"><i class="fas fa-user-plus"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">New user registered</div>
+              <div class="activity-time">-</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon blue"><i class="fas fa-user-shield"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">Admin privileges updated</div>
+              <div class="activity-time">-</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon green"><i class="fas fa-check-circle"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">System backup completed</div>
+              <div class="activity-time">-</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon orange"><i class="fas fa-envelope"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">Admin invite sent</div>
+              <div class="activity-time">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendations-section">
+        <div class="section-header">
+          <h2><i class="fas fa-lightbulb"></i> Recommendations</h2>
+        </div>
+        <div class="recommendation-cards">
+          <div class="recommendation-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Security Update Available</h3>
+            <p>A new security patch is available. Update now to keep your system secure.</p>
+            <button class="btn-action" onclick="handleUpdate()">Update Now</button>
+          </div>
+          <div class="recommendation-card">
+            <i class="fas fa-database"></i>
+            <h3>Database Optimization</h3>
+            <p>Your database can be optimized for better performance. Run optimization now.</p>
+            <button class="btn-action" onclick="handleOptimize()">Optimize</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions-section">
+        <div class="section-header">
+          <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+        </div>
+        <div class="quick-actions-grid">
+          <button class="quick-action-btn" onclick="showInviteModal()">
+            <i class="fas fa-user-plus"></i>
+            <span>Invite Admin</span>
+          </button>
+          <button class="quick-action-btn" onclick="showUsersModal()">
+            <i class="fas fa-users-cog"></i>
+            <span>Manage Users</span>
+          </button>
+          <button class="quick-action-btn" onclick="showReportsModal()">
+            <i class="fas fa-file-alt"></i>
+            <span>Generate Report</span>
+          </button>
+          <button class="quick-action-btn" onclick="showSettingsModal()">
+            <i class="fas fa-cog"></i>
+            <span>System Settings</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="inviteModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-envelope"></i> Invite New Admin</h2>
+          <button class="close-btn" onclick="closeInviteModal()">&times;</button>
+        </div>
+        <form id="inviteForm">
+          <div class="form-group">
+            <label for="inviteEmail"><i class="fas fa-envelope"></i> Admin Email</label>
+            <input type="email" id="inviteEmail" name="email" placeholder="admin@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="inviteRole"><i class="fas fa-user-tag"></i> Role</label>
+            <select id="inviteRole" name="role">
+              <option value="admin">Admin</option>
+              <option value="moderator">Moderator</option>
+              <option value="support">Support</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inviteMessage"><i class="fas fa-comment"></i> Personal Message (Optional)</label>
+            <textarea id="inviteMessage" name="message" rows="4"
+              placeholder="Add a personal message to the invite..."></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" onclick="closeInviteModal()">Cancel</button>
+            <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Invite</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/superadmin-dashboard.js"></script>
+</body>
+
+</html>
+<script src="js/superadmin-dashboard.js"></script>
+</body>
+
+</html>

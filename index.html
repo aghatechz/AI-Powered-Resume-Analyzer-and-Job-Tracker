@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - AI Resume Tracker</title>
+  <link rel="stylesheet" href="css/auth.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+</head>
+<body>
+
+ 
+  <div class="bg-shapes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-wrapper">
+
+      <div class="auth-image">
+        <img src="assets/illustration.png" alt="Login Image">
+      </div>
+
+      <div class="auth-card">
+
+        <div class="logo" style="text-align:center; margin-bottom:15px;">
+          <img src="assets/Group 1686550876.png" alt="Logo" style="width:80px; height:auto;">
+        </div>
+
+        <h2>Login to your Account</h2>
+
+        <p style="text-align:center; color:#555; margin-bottom:20px; font-size:14px;">
+          See what is going on with your business
+        </p>
+
+        <form id="loginForm">
+          <input type="email" id="email" placeholder="Email" required />
+          <input type="password" id="password" placeholder="Password" required />
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-size:14px;">
+            <label style="display:flex; align-items:center; gap:5px;">
+              <input type="checkbox" id="rememberMe" /> Remember me
+            </label>
+            <a href="forgot.html" style="color:#7f265b; text-decoration:none;">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn">Login</button>
+
+        </form>
+
+        <div style="text-align:center; margin-top:20px; font-size:14px; color:#555;">
+                  <div id="googleLoginBtn">Sign Up with googel</div>
+        </div>
+
+        <p class="switch-page" style="margin-top:15px;">
+          Don't have an account? <a href="signup.html">Register</a>
+        </p>
+        <div id="loginMsg" class="msg"></div>
+
+      </div>
+
+    </div>
+  </div>
+<script src="js/google-login.js"></script>
+
+  <script src="js/auth.js" type="module"></script>
+</body>
+</html>

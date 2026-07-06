@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextHire - AI-Powered Resume Analyzer & Job Tracker</title>
+  <meta name="description"
+    content="NextHire - AI-powered resume analyzer & job tracker helping professionals land their dream jobs.">
+  <meta name="keywords" content="Resume Analyzer, Job Tracker, AI, Career, Job Applications, NextHire">
+  <meta name="author" content="NextHire">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+  <!-- Top Notification Bar -->
+
+
+  <!-- Animated Background -->
+  <div class="bg-shapes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Floating Chat Toggle -->
+  <div id="chat-toggle-btn" class="chat-toggle">
+    <i class="fas fa-comments"></i>
+  </div>
+
+  <!-- Chatbot Container -->
+  <div class="chatbot-container" id="chatbot">
+    <header class="chatbot-header">
+      <div>
+        <h2><i class="fas fa-robot"></i> Job & Resume Helper</h2>
+        <p>Ask me anything about jobs or your resume</p>
+      </div>
+      <button class="close-chat" id="close-chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </header>
+    <div class="chat-messages" id="chat-area">
+      <div class="message bot-message">
+        <div class="message-avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content">
+          Hello! I'm your AI career assistant. How can I help you today with your resume or job search?
+        </div>
+      </div>
+    </div>
+    <form class="chat-input-form" id="input-form">
+      <input type="text" id="user-input" placeholder="Type your question..." required />
+      <button type="submit">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+
+  <div class="top-bar">
+    <p>
+      Welcome to NextHire – Your career data is 100% safe, never sold or misused.
+    </p>
+  </div>
+
+  <!-- Enhanced Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <i class="fas fa-briefcase"></i>
+        <span>NextHire</span>
+        <span class="brand-by">by Urooj</span>
+      </div>
+
+      <div class="mobile-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#jobs">Jobs</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <a href="index.html" class="btn btn-login">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Login</span>
+        </a>
+        <a href="signup.html" class="btn btn-signup">
+          <i class="fas fa-user-plus"></i>
+          <span>Sign Up</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-container reveal">
+      <div class="hero-content">
+        <div class="hero-text reveal-left">
+          <span class="hero-badge">
+            <i class="fas fa-star"></i>
+            <span>#1 AI Resume Analyzer</span>
+          </span>
+          <h1 class="animate-text">
+            Track Your Jobs &
+            <span class="gradient-text">Boost Your Career</span>
+          </h1>
+          <p class="animate-text">
+            AI-powered Resume Analyzer & Job Tracker that helps you land your dream job faster.
+            Get instant feedback, optimize for ATS, and track applications all in one place.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="signup.html" class="btn btn-primary">
+              <span>Get Started</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#features" class="btn btn-secondary">
+              <i class="fas fa-play-circle"></i>
+              <span>Watch Demo</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <h3>10K+</h3>
+              <p>Active Users</p>
+            </div>
+            <div class="stat">
+              <h3>50K+</h3>
+              <p>Resumes Analyzed</p>
+            </div>
+            <div class="stat">
+              <h3>95%</h3>
+              <p>Success Rate</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image reveal-right">
+          <div class="image-wrapper">
+            <img src="assets/dv.png" alt="AI Resume Analysis Dashboard"
+              onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80'">
+            <div class="floating-card card-1">
+              <i class="fas fa-check-circle"></i>
+              <span>ATS Optimized</span>
+            </div>
+            <div class="floating-card card-2">
+              <i class="fas fa-star"></i>
+              <span>95% Match Rate</span>
+            </div>
+            <div class="floating-card card-3">
+              <i class="fas fa-rocket"></i>
+              <span>Fast Results</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Tracking Section -->
+  <section class="hero-alt">
+    <div class="hero-container reveal">
+      <div class="hero-content reverse">
+        <div class="hero-image reveal-left">
+          <div class="image-wrapper">
+            <img src="assets/Screenshot 2025-12-05 045538.png" alt="Job Tracking Dashboard"
+              onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80'">
+            <div class="dashboard-preview">
+              <div class="preview-card">
+                <i class="fas fa-briefcase"></i>
+                <div>
+                  <h4>35</h4>
+                  <p>Jobs Applied</p>
+                </div>
+              </div>
+              <div class="preview-card">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h4>12</h4>
+                  <p>Interviews</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-text reveal-right">
+          <span class="hero-badge">
+            <i class="fas fa-chart-line"></i>
+            <span>Smart Tracking</span>
+          </span>
+          <h2>
+            Never Lose Track of Your
+            <span class="gradient-text">Job Applications</span>
+          </h2>
+          <p>
+            Organize all your job applications in one intuitive dashboard. Track application status,
+            set reminders, add notes, and get AI-powered insights to improve your success rate.
+          </p>
+
+          <ul class="feature-list">
+            <li>
+              <i class="fas fa-check"></i>
+              <span>Real-time application tracking</span>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <span>Automated reminders & notifications</span>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <span>Interview preparation resources</span>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <span>Success analytics & insights</span>
+            </li>
+          </ul>
+
+          <a href="#" class="btn btn-primary">
+            <span>View Dashboard</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Why Choose Us</span>
+        <h2>Powerful Features to <span class="gradient-text">Accelerate Your Career</span></h2>
+        <p>Everything you need to land your dream job, all in one platform</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI-Powered Analysis</h3>
+          <p>Get instant feedback on your resume with our advanced AI engine. Optimize for ATS and improve your chances
+            of getting noticed.</p>
+          <a href="#" class="feature-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="feature-card featured reveal" style="transition-delay: 0.2s;">
+          <div class="popular-badge">Most Popular</div>
+          <div class="feature-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>Smart Resume</h3>
+          <p>Create optimized resumes using your job descriptions and AI insights to increase interview chances.</p>
+          <a href="#" class="feature-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="feature-card reveal" style="transition-delay: 0.3s;">
+          <div class="feature-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Job Tracker</h3>
+          <p>Manage all your applications in one place, track status, set reminders, and never miss an opportunity.</p>
+          <a href="#" class="feature-link">
+            Learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="faq-container">
+      <div class="section-header">
+        <span class="section-badge">Need Help?</span>
+        <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+        <p>Clear answers to common questions about NextHire</p>
+      </div>
+
+      <div class="faq-grid">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>What exactly does NextHire do?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              NextHire helps you analyze your resume using AI and track all your job applications in one place.
+              You can see how strong your resume is, identify missing skills, and manage applied jobs, interviews,
+              and follow-ups from a single dashboard.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>How accurate is the AI resume analysis?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Our AI analysis is based on real job descriptions, ATS rules, and industry standards.
+              While no AI can guarantee a job, NextHire gives highly accurate suggestions for improving
+              keywords, formatting, and content to increase your chances of shortlisting.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Is my resume data safe?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Yes. Your resume and personal data are encrypted and stored securely.
+              We do not sell, share, or use your data for training without your permission.
+              You can delete your resume permanently at any time from your account.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>What is ATS and why does it matter?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              ATS (Applicant Tracking System) is software used by companies to filter resumes.
+              If your resume is not ATS-friendly, it may never reach a recruiter.
+              NextHire checks your resume structure, keywords, and formatting to improve ATS compatibility.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Can I track multiple job applications?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Yes. You can track unlimited job applications depending on your plan.
+              Each job can have its own status (Applied, Interview, Offer, Rejected),
+              notes, reminders, and resume version.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Is NextHire free to use?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Yes. The free plan allows resume analysis and basic job tracking.
+              Premium plans unlock advanced AI suggestions, unlimited tracking,
+              resume versions, and priority support.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Can I use NextHire for different career fields?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Absolutely. NextHire works for software developers, designers,
+              data analysts, business professionals, students, and fresh graduates.
+              The AI adapts feedback based on your selected role.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Does NextHire apply to jobs on my behalf?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              No. NextHire does not auto-apply to jobs.
+              Instead, it helps you stay organized, improve your resume,
+              and track where you have applied so you never miss follow-ups.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Reviews Section -->
+  <section class="reviews" id="reviews">
+    <div class="section-header">
+      <span class="section-badge">Testimonials</span>
+      <h2>What Our <span class="gradient-text">Users Say</span></h2>
+      <p>Join thousands of professionals who've transformed their job search</p>
+    </div>
+
+    <div class="loader-container" id="reviewLoader">
+      <div class="spinner"></div>
+      <p>Loading reviews...</p>
+    </div>
+
+    <div class="review-cards" id="reviewCards" style="display: none;"></div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Job Search?</h2>
+      <p>Join thousands of professionals who've already landed their dream jobs</p>
+      <div class="cta-buttons">
+        <a href="signup.html" class="btn btn-white">
+          <span>Get Started Free</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <span>Contact Sales</span>
+          <i class="fas fa-phone"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>
+          <i class="fas fa-briefcase"></i>
+          NextHire
+        </h3>
+        <p>AI-powered career acceleration platform helping professionals land their dream jobs.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#">Resume Analyzer</a></li>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        &copy; 2025 NextHire. All rights reserved. Made with <i class="fas fa-heart"></i> for job seekers worldwide.
+        <br>
+        <small>Powered by<strong>Urooj</strong>.</small>
+      </p>
+    </div>
+
+  </footer>
+
+  <script src="js/home.js"></script>
+</body>
+
+</html>

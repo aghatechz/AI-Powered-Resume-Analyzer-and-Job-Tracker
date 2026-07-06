@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Analyzer - AI Resume Tracker</title>
+  <link rel="stylesheet" href="css/resume.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <div class="background-animation">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/Group 1686550876.png" alt="Logo">
+      <h2>AI Resume Tracker</h2>
+    </div>
+    <ul class="menu">
+      <li>
+        <a href="dashboard.html">
+          <i class="fas fa-th-large"></i>
+          <span>Dashboard</span>
+        </a>
+      <li>
+        <a href="career.html">
+          <i class="fas fa-file-alt"></i>
+          <span>career Assistant</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="resume.html">
+          <i class="fas fa-file-alt"></i>
+          <span>Resume Analyzer</span>
+        </a>
+      </li>
+      <li>
+        <a href="jobs.html">
+          <i class="fas fa-briefcase"></i>
+          <span>Jobs Tracker</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="settings.html">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+      <li class="logout">
+        <a href="home.html">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+
+    <header class="navbar">
+      <div class="header-left">
+        <h1>Resume Analyzer</h1>
+        <p class="subtitle">Get AI-powered resume improvement suggestions</p>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+        <div class="notifications">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="user-info">
+          <div class="user-details">
+            <span class="user-name">John Doe</span>
+            <span class="user-role">Premium User</span>
+          </div>
+          <img id="userAvatar" alt="User Avatar"
+            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+        </div>
+      </div>
+    </header>
+
+    <div class="resume-container">
+      <div class="page-header">
+        <div class="header-icon">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <h2>Resume Analyzer</h2>
+        <p>Paste your resume and get AI-based improvement suggestions!</p>
+      </div>
+
+      <section class="resume-section">
+        <div class="input-tabs">
+          <button class="tab-btn active" data-tab="text">Paste Text</button>
+          <button class="tab-btn" data-tab="upload">Upload File</button>
+        </div>
+
+        <div class="tab-content active" id="text-tab">
+          <div class="textarea-wrapper">
+            <textarea id="resumeText" placeholder="Paste your resume here..."></textarea>
+            <div class="char-counter"><span id="charCount">0</span> characters</div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="upload-tab">
+          <div class="upload-area" id="uploadArea">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h3>Drag & Drop your resume</h3>
+            <p>or click to browse</p>
+            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" style="display:none;">
+            <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click()">Browse
+              Files</button>
+          </div>
+          <div class="file-info" id="fileInfo" style="display:none;">
+            <i class="fas fa-file"></i>
+            <span id="fileName"></span>
+            <button class="remove-file" id="removeFile"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <button id="analyzeBtn" class="btn"><i class="fas fa-search"></i> Analyze Resume</button>
+        <div class="quick-tips">
+          <div class="tip-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <div class="tip-content">
+            <strong>Quick Tip:</strong> Make sure your resume includes contact info, work experience, education, and
+            skills for best results.
+          </div>
+        </div>
+      </section>
+
+      <div class="loading-state" id="loadingState" style="display: none;">
+        <div class="loader"></div>
+        <p>Analyzing your resume with AI...</p>
+      </div>
+
+      <section class="ai-result" id="aiResult" style="display: none;">
+        <div class="score-card">
+          <div class="score-circle" id="scoreCircle">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" class="score-bg"></circle>
+              <circle cx="50" cy="50" r="45" class="score-progress" id="scoreProgress"></circle>
+            </svg>
+            <div class="score-text">
+              <span class="score-number" id="scoreNumber">0</span>
+              <span class="score-label">Score</span>
+            </div>
+          </div>
+          <div class="score-details">
+            <h3>Overall Resume Score</h3>
+            <p id="scoreDescription">Your resume has been analyzed</p>
+          </div>
+        </div>
+
+        <div class="analysis-tabs">
+          <button class="analysis-tab active" data-section="overview">
+            <i class="fas fa-chart-pie"></i> Overview
+          </button>
+          <button class="analysis-tab" data-section="strengths">
+            <i class="fas fa-check-circle"></i> Strengths
+          </button>
+          <button class="analysis-tab" data-section="improvements">
+            <i class="fas fa-exclamation-circle"></i> Improvements
+          </button>
+          <button class="analysis-tab" data-section="keywords">
+            <i class="fas fa-key"></i> Keywords
+          </button>
+        </div>
+
+        <div class="analysis-content">
+          <div class="content-section active" id="overview-section">
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <i class="fas fa-check-double"></i>
+                <h4>ATS Compatibility</h4>
+                <p class="metric-value" id="atsScore">--%</p>
+              </div>
+              <div class="metric-card">
+                <i class="fas fa-star"></i>
+                <h4>Keywords Matched</h4>
+                <p class="metric-value" id="keywordScore">--</p>
+              </div>
+              <div class="metric-card">
+                <i class="fas fa-file-alt"></i>
+                <h4>Format Quality</h4>
+                <p class="metric-value" id="formatScore">--%</p>
+              </div>
+              <div class="metric-card">
+                <i class="fas fa-bullseye"></i>
+                <h4>Impact Score</h4>
+                <p class="metric-value" id="impactScore">--%</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section" id="strengths-section">
+            <div class="strengths-list" id="strengthsList"></div>
+          </div>
+
+          <div class="content-section" id="corrected-section">
+            <h3 style="margin-bottom:10px;">AI Corrected Resume</h3>
+            <pre id="correctedTextOutput"
+              style="white-space: pre-wrap; background:#7f265b; color:#ededed; padding:15px; border-radius:10px; font-size:14px;"></pre>
+          </div>
+
+          <div id="suggestions-container" style="margin-top:20px;">
+            <h4 style="margin-bottom:10px; color:#000000;">Suggestions / Improvements</h4>
+            <div id="improvementsList" class="improvements-list"
+              style="display: flex; flex-direction: column; gap: 12px;"></div>
+          </div>
+
+          <div class="content-section" id="keywords-section">
+            <div class="keywords-container" id="keywordsContainer"></div>
+          </div>
+        </div>
+
+        <button id="downloadBtn">Download PDF</button>
+
+        <div class="action-buttons">
+          <button id="viewTemplateBtn">View Template</button>
+          <button class="action-btn secondary">
+            <i class="fas fa-share"></i> Share Results
+          </button>
+          <button class="action-btn" onclick="location.reload()">
+            <i class="fas fa-redo"></i> Analyze Another
+          </button>
+        </div>
+
+        <div class="popup-overlay" id="popupOverlay">
+          <div class="popup-content">
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <h2>Select Template</h2>
+            <div class="templates-grid">
+              <div class="template-item" data-template="1">
+                <img src="./assets/template1.png" alt="Template 1">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="2">
+                <img src="./assets/template2.png" alt="Template 2">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="3">
+                <img src="./assets/template3.png" alt="Template 3">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="4">
+                <img src="./assets/template4.png" alt="Template 4">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="5">
+                <img src="./assets/template5.png" alt="Template 5">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="6">
+                <img src="./assets/template6.png" alt="Template 6">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="7">
+                <img src="./assets/template7.png" alt="Template 7">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="8">
+                <img src="./assets/template8.png" alt="Template 8">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="9">
+                <img src="./assets/template9.png" alt="Template 9">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="10">
+                <img src="./assets/template10.png" alt="Template 10">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="11">
+                <img src="./assets/template11.png" alt="Template 11">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="12">
+                <img src="./assets/template12.png" alt="Template 12">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="13">
+                <img src="./assets/template13.png" alt="Template 13">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="14">
+                <img src="./assets/template14.png" alt="Template 14">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="15">
+                <img src="./assets/template15.png" alt="Template 15">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="16">
+                <img src="./assets/template16.png" alt="Template 16">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="17">
+                <img src="./assets/template17.png" alt="Template 17">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="18">
+                <img src="./assets/template18.png" alt="Template 18">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="19">
+                <img src="./assets/template19.png" alt="Template 19">
+                <button class="select-btn">Select</button>
+              </div>
+              <div class="template-item" data-template="20">
+                <img src="./assets/template20.png" alt="Template 20">
+                <button class="select-btn">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-preview-overlay" id="imagePreview">
+          <button class="preview-close-btn" id="previewCloseBtn">&times;</button>
+          <img id="previewImg" src="" alt="Template Preview">
+        </div>
+
+
+    </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+    <script src="js/resume.js"></script>
+
+</body>
+
+</html>

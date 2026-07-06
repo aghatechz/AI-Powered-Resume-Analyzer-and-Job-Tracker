@@ -1,0 +1,262 @@
+// ====== career.js ======
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
+
+  const api = axios.create({
+    baseURL: "http://localhost:5000/api/career",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+  // Inputs
+  const resumeTextInput = document.getElementById("resumeTextInput");
+  const resumeFileInput = document.getElementById("resumeFileInput");
+  const jobDescInput = document.getElementById("jobDescInput");
+  const polishBtn = document.getElementById("polishBtn");
+
+  // Output & Loading
+  const loadingState = document.getElementById("loadingState");
+  const loadingText = document.getElementById("loadingText");
+  const aiResult = document.getElementById("aiResult");
+  const improvedScore = document.getElementById("improvedScore");
+  const improvementList = document.getElementById("improvementList");
+  const correctedResumeOutput = document.getElementById("correctedResumeOutput");
+
+  // File info
+  const fileInfo = document.getElementById("fileInfo");
+  const fileName = document.getElementById("fileName");
+  const removeFile = document.getElementById("removeFile");
+
+  // Template + Download
+  const viewTemplateBtn = document.getElementById("viewTemplateBtn");
+  const popupOverlay = document.getElementById("popupOverlay");
+  const closeBtn = document.getElementById("closeBtn");
+  const templateSelect = document.getElementById("templateSelect");
+  const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+  const downloadDocBtn = document.getElementById("downloadDocBtn");
+  const imagePreview = document.getElementById("imagePreview");
+  const previewImg = document.getElementById("previewImg");
+  const previewCloseBtn = document.getElementById("previewCloseBtn");
+
+  let aiData = {};
+  let selectedTemplate = null;
+
+  // ===== File Upload Handling =====
+  resumeFileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    fileInfo.style.display = "flex";
+    fileName.innerText = file.name;
+  });
+
+  removeFile.addEventListener("click", () => {
+    resumeFileInput.value = "";
+    resumeTextInput.value = "";
+    fileInfo.style.display = "none";
+  });
+
+  // ===== Loading Text Animation =====
+  let loadingInterval = null;
+  function startLoadingText() {
+    const messages = [
+      "Reading your resume file...",
+      "Matching job requirements...",
+      "Refining content for ATS..."
+    ];
+    let index = 0;
+    loadingText.innerText = messages[index];
+    loadingInterval = setInterval(() => {
+      index = (index + 1) % messages.length;
+      loadingText.innerText = messages[index];
+    }, 2000);
+  }
+  function stopLoadingText() {
+    clearInterval(loadingInterval);
+  }
+
+  // ===== Polish Resume Button =====
+  polishBtn.addEventListener("click", async () => {
+    const resumeText = resumeTextInput.value.trim();
+    const jobDescText = jobDescInput.value.trim();
+
+    if (!resumeText && !resumeFileInput.files.length) {
+      return showNotification("Please upload or paste your resume first!", "error");
+    }
+    if (!jobDescText) {
+      return showNotification("Please paste the job description!", "error");
+    }
+
+    loadingState.style.display = "block";
+    aiResult.style.display = "none";
+    startLoadingText();
+
+    console.log("Sending resumeText:", resumeText);
+console.log("Sending jobDescription:", jobDescText);
+console.log("Sending file:", resumeFileInput.files[0]);
+
+
+    try {
+      const formData = new FormData();
+      formData.append("resumeText", resumeText);
+      formData.append("jobDescription", jobDescText);
+      if (resumeFileInput.files[0]) formData.append("resumeFile", resumeFileInput.files[0]);
+
+      const { data } = await api.post("/polish", formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+
+      renderAIResult(data);
+      loadingState.style.display = "none";
+      stopLoadingText();
+      showNotification("Resume polished successfully!", "success");
+
+    } catch (err) {
+      loadingState.style.display = "none";
+      stopLoadingText();
+      console.error(err);
+      showNotification(err.response?.data?.message || "AI polishing failed", "error");
+    }
+  });
+
+  // ===== Render AI Result =====
+function renderAIResult(result) {
+    aiData = result;
+    aiResult.style.display = "block";
+
+    // ✅ Use aiResult from backend
+    improvedScore.innerText = result.aiResult?.score ?? "0";
+    document.getElementById("atsScore").innerText = result.aiResult?.atsScore ?? "0";  // ✅ add this line
+
+
+    improvementList.innerHTML = "";
+    result.aiResult?.suggestions?.forEach((imp, i) => {
+        const div = document.createElement("div");
+        div.className = "improvement-item";
+        div.innerHTML = `<strong>${i + 1}.</strong> ${imp}`;
+        improvementList.appendChild(div);
+    });
+
+    correctedResumeOutput.value = result.aiResult?.correctedText || resumeTextInput.value;
+}
+
+
+  // ===== Template Popup =====
+  viewTemplateBtn.addEventListener("click", () => popupOverlay.classList.add("active"));
+  closeBtn.addEventListener("click", () => popupOverlay.classList.remove("active"));
+  popupOverlay.addEventListener("click", (e) => {
+    if (e.target === popupOverlay) popupOverlay.classList.remove("active");
+  });
+
+  templateSelect.querySelectorAll(".template-item img").forEach(img => {
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      previewImg.src = e.target.src;
+      imagePreview.classList.add("active");
+    });
+  });
+
+  previewCloseBtn.addEventListener("click", () => imagePreview.classList.remove("active"));
+  imagePreview.addEventListener("click", (e) => { if(e.target === imagePreview) imagePreview.classList.remove("active"); });
+
+  templateSelect.querySelectorAll(".select-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const templateId = btn.closest(".template-item").getAttribute("data-template");
+      selectedTemplate = { id: templateId, name: `template${templateId}.html` };
+      btn.textContent = '✓ Selected';
+      btn.style.background = '#00c853';
+      templateSelect.querySelectorAll(".select-btn").forEach(other => {
+        if (other !== btn) { other.textContent = 'Select'; other.style.background = ''; }
+      });
+      setTimeout(() => popupOverlay.classList.remove("active"), 500);
+    });
+  });
+
+  // ===== Download Buttons =====
+  downloadPdfBtn.addEventListener("click", async () => downloadResume("pdf"));
+  downloadDocBtn.addEventListener("click", async () => downloadResume("docx"));
+
+  async function downloadResume(format) {
+    if (!selectedTemplate) return showNotification("Select a template first!", "error");
+    if (!correctedResumeOutput.value.trim()) return showNotification("No resume content!", "error");
+
+    try {
+      const response = await api.post(`/download-${format}`, {
+        templateName: selectedTemplate.name,
+        data: aiData
+      }, { responseType: "blob" });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `resume_template_${selectedTemplate.id}.${format}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showNotification(`Resume downloaded as ${format.toUpperCase()}!`, "success");
+    } catch (err) {
+      console.error(err);
+      showNotification(`Failed to download ${format.toUpperCase()}`, "error");
+    }
+  }
+  
+
+  
+
+  // ===== Notifications =====
+  function showNotification(message, type='success') {
+    const colors = {
+      success: 'linear-gradient(135deg, #00c853 0%, #00e676 100%)',
+      error: 'linear-gradient(135deg, #f44336 0%, #e57373 100%)',
+      info: 'linear-gradient(135deg, #2196F3 0%, #64B5F6 100%)'
+    };
+    const notification = document.createElement("div");
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: ${colors[type] || colors.success};
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      font-weight: 500;
+      animation: slideIn 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Notification animations
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes slideIn { from { transform: translateX(400px); opacity:0 } to { transform: translateX(0); opacity:1 } }
+    @keyframes slideOut { from { transform: translateX(0); opacity:1 } to { transform: translateX(400px); opacity:0 } }
+  `;
+  document.head.appendChild(style);
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  function setupCharCounter(textareaId, counterId, maxChars) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+
+    textarea.addEventListener("input", () => {
+      if (textarea.value.length > maxChars) {
+        textarea.value = textarea.value.substring(0, maxChars);
+      }
+      counter.innerText = textarea.value.length;
+    });
+  }
+
+  setupCharCounter("resumeTextInput", "charCount", 5000);
+  setupCharCounter("jobDescInput", "jobCharCount", 3000);
+});

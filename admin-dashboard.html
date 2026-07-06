@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin-dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-shapes">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/Group 1686550876.png" alt="Logo">
+      <h2>Admin Panel</h2>
+    </div>
+    <ul class="menu">
+      <li class="active"><a href="admin-dashboard.html"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
+      <li><a href="admin-users.html"><i class="fas fa-users"></i> <span>View Users</span></a></li>
+      <li><a href="#profile"><i class="fas fa-user-circle"></i> <span>My Profile</span></a></li>
+      <li><a href="#reports"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+      <li><a href="#settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+      <li class="logout"><a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span></a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+
+    <header>
+      <div class="header-left">
+        <h1>Admin Dashboard</h1>
+        <p class="subtitle">Welcome back! Here's your overview</p>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+        <div class="notifications" onclick="toggleNotifications()">
+          <i class="fas fa-bell"></i>
+          <span class="badge" id="notificationBadge">5</span>
+        </div>
+        <div class="user-info" onclick="toggleUserMenu()">
+          <div class="user-details">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Admin</span>
+          </div>
+          <img src="https://ui-avatars.com/api/?name=Admin+User&background=6b73ff&color=fff" alt="User">
+        </div>
+      </div>
+    </header>
+
+    <div class="cards">
+      <div class="card card-blue">
+        <div class="card-icon"><i class="fas fa-users"></i></div>
+        <div class="card-content">
+          <h3>Total Users</h3>
+          <div class="card-number" id="totalUsers">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> 8% from last week</div>
+        </div>
+      </div>
+      <div class="card card-green">
+        <div class="card-icon"><i class="fas fa-user-check"></i></div>
+        <div class="card-content">
+          <h3>Active Users</h3>
+          <div class="card-number" id="activeUsers">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> 12% from last week</div>
+        </div>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="card-content">
+          <h3>Total Activities</h3>
+          <div class="card-number" id="totalActivities">0</div>
+          <div class="card-trend up"><i class="fas fa-arrow-up"></i> 5% from last week</div>
+        </div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon"><i class="fas fa-tasks"></i></div>
+        <div class="card-content">
+          <h3>Pending Tasks</h3>
+          <div class="card-number" id="pendingTasks">0</div>
+          <div class="card-trend down"><i class="fas fa-arrow-down"></i> 2% from last week</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="analytics-section">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-area"></i> User Activity Analytics</h2>
+          <select class="time-filter" id="timeFilter">
+            <option value="7">Last 7 Days</option>
+            <option value="30" selected>Last 30 Days</option>
+            <option value="90">Last 90 Days</option>
+          </select>
+        </div>
+        <div class="chart-container">
+          <canvas id="userActivityChart"></canvas>
+        </div>
+        <div class="analytics-stats">
+          <div class="stat-item">
+            <span class="stat-label">User Engagement Rate</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 75%"></div>
+            </div>
+            <span class="stat-value">75%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Task Completion Rate</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 88%"></div>
+            </div>
+            <span class="stat-value">88%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-section">
+        <div class="section-header">
+          <h2><i class="fas fa-history"></i> Recent Activity</h2>
+          <a href="#" class="view-all">View All</a>
+        </div>
+        <div class="activity-list" id="activityList">
+          <div class="activity-item">
+            <div class="activity-icon blue"><i class="fas fa-user-plus"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">New user registered</div>
+              <div class="activity-time">5 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon green"><i class="fas fa-check-circle"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">Task completed successfully</div>
+              <div class="activity-time">20 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon orange"><i class="fas fa-edit"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">User profile updated</div>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon purple"><i class="fas fa-file-alt"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">Report generated</div>
+              <div class="activity-time">2 hours ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon blue"><i class="fas fa-envelope"></i></div>
+            <div class="activity-details">
+              <div class="activity-title">Email notification sent</div>
+              <div class="activity-time">3 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions-section">
+        <div class="section-header">
+          <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+        </div>
+        <div class="quick-actions-grid">
+          <button class="quick-action-btn" onclick="viewUsers()">
+            <i class="fas fa-users"></i>
+            <span>View Users</span>
+          </button>
+          <button class="quick-action-btn" onclick="generateReport()">
+            <i class="fas fa-file-alt"></i>
+            <span>Generate Report</span>
+          </button>
+          <button class="quick-action-btn" onclick="viewProfile()">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+          </button>
+          <button class="quick-action-btn" onclick="openSettings()">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="recent-users-section">
+        <div class="section-header">
+          <h2><i class="fas fa-users"></i> Recent Users</h2>
+          <a href="admin-users.html" class="view-all">View All</a>
+        </div>
+        <div class="users-grid" id="recentUsersGrid">
+          <div class="user-card">
+            <div class="user-avatar">
+              <img src="https://ui-avatars.com/api/?name=John+Doe&background=6b73ff&color=fff" alt="User">
+              <span class="status-dot active"></span>
+            </div>
+            <div class="user-info-card">
+              <h4>John Doe</h4>
+              <p>john@example.com</p>
+              <span class="badge-small">Active</span>
+            </div>
+          </div>
+          <div class="user-card">
+            <div class="user-avatar">
+              <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=00c853&color=fff" alt="User">
+              <span class="status-dot active"></span>
+            </div>
+            <div class="user-info-card">
+              <h4>Jane Smith</h4>
+              <p>jane@example.com</p>
+              <span class="badge-small">Active</span>
+            </div>
+          </div>
+          <div class="user-card">
+            <div class="user-avatar">
+              <img src="https://ui-avatars.com/api/?name=Mike+Johnson&background=ff9800&color=fff" alt="User">
+              <span class="status-dot"></span>
+            </div>
+            <div class="user-info-card">
+              <h4>Mike Johnson</h4>
+              <p>mike@example.com</p>
+              <span class="badge-small inactive">Inactive</span>
+            </div>
+          </div>
+          <div class="user-card">
+            <div class="user-avatar">
+              <img src="https://ui-avatars.com/api/?name=Sarah+Williams&background=7f265b&color=fff" alt="User">
+              <span class="status-dot active"></span>
+            </div>
+            <div class="user-info-card">
+              <h4>Sarah Williams</h4>
+              <p>sarah@example.com</p>
+              <span class="badge-small">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="js/admin-dashboard.js"></script>
+</body>
+
+</html>
