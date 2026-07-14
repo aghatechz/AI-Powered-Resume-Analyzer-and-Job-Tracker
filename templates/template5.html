@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Professional Resume</title>
+<style>
+/* --- Global Styles --- */
+body {
+    /* Clean, white background for professionalism */
+    background: #f4f4f4; 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333; /* Darker text for readability */
+    line-height: 1.5;
+}
+
+/* --- Resume Container --- */
+.resume {
+    max-width: 900px; /* Slightly wider */
+    margin: 50px auto;
+    background: #ffffff; /* Pure white background */
+    padding: 60px 45px; /* More padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* --- Header / Name --- */
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #007bff; /* Professional blue highlight */
+    margin-bottom: 5px;
+    border-bottom: none; /* Removed heavy border */
+    padding-bottom: 0;
+}
+.resume > p {
+    color: #666; /* Contact info color */
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* --- Sections --- */
+.section {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #eee; /* Light divider */
+}
+
+.section h2 {
+    color: #333; /* Section header color */
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+/* --- Content Text --- */
+p {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* --- Skills Section --- */
+.skills {
+    margin-top: 10px;
+}
+
+.skills span {
+    display: inline-block;
+    background: #e9f7ff; /* Light blue background for skills */
+    color: #007bff; /* Blue text */
+    padding: 5px 15px;
+    border-radius: 4px;
+    margin: 5px 5px 5px 0;
+    font-size: 14px;
+    font-weight: 500;
+    border: none; /* Removed border */
+}
+</style>
+</head>
+<body>
+<div class="resume">
+  <h1>{{name}}</h1>
+  <p>Email: {{email}} | Phone: {{phone}}</p>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <p>{{experience}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <p>{{education}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <div class="skills">{{skills}}</div>
+  </div>
+</div>
+</body>
+</html>

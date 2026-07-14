@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Executive Professional Resume</title>
+<style>
+/* --- Global Styles --- */
+body {
+    background: #ffffff; /* Pure white background */
+    /* Clean, widely used font for maximum compatibility and readability */
+    font-family: 'Times New Roman', Times, serif; 
+    color: #2c3e50; /* Deep charcoal grey for a rich look */
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Resume Container --- */
+.resume {
+    max-width: 850px; /* Standard professional width */
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 40px 60px;
+    border-radius: 4px;
+    /* Optional: A very thin, light border for definition */
+    border: 1px solid #e0e0e0;
+}
+
+/* --- Header / Name & Contact --- */
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a; 
+    margin-bottom: 3px;
+    text-transform: capitalize;
+}
+
+.resume > p {
+    color: #555555; 
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    /* Simple lines for separation */
+    padding-bottom: 5px;
+    border-bottom: 2px solid #555555; /* Thick dark line under contact */
+}
+
+/* --- Section Formatting --- */
+.section {
+    margin-top: 25px;
+}
+
+.section h2 {
+    color: #34495e; /* Section header color - Dark slate */
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #bdc3c7; /* Thin grey line for separation */
+    margin-bottom: 12px;
+}
+
+/* --- Content Text --- */
+p {
+    color: #444444;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+/* --- Skills Section Styling --- */
+.skills {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; /* Space between skill items */
+}
+
+.skills span {
+    display: inline-block;
+    /* Very subtle background for visual break, looks like a light box */
+    background: #f8f9fa; 
+    color: #34495e; 
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #e9ecef; /* Very light border */
+}
+</style>
+</head>
+<body>
+<div class="resume">
+  <h1>{{name}}</h1>
+  <p>Email: {{email}} | Phone: {{phone}}</p>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <p>{{experience}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <p>{{education}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <div class="skills">{{skills}}</div>
+  </div>
+</div>
+</body>
+</html>

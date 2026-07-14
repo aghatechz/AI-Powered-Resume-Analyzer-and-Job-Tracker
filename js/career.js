@@ -175,29 +175,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== Download PDF =====
+  // ===== Download PDF (client-side via the browser's print engine) =====
+  // Renders the chosen template in a new window and opens the print dialog,
+  // where the user picks "Save as PDF". Works on any host (no server Chromium).
   downloadPdfBtn.addEventListener("click", async () => {
     if (!selectedTemplate) return showNotification("Select a template first!", "error");
-    if (!correctedResumeOutput.value.trim()) return showNotification("No polished resume!", "error");
+    const d = aiData.aiResult;
+    if (!d || !correctedResumeOutput.value.trim()) return showNotification("No polished resume!", "error");
+
+    // Open the window synchronously (inside the click) so pop-up blockers allow it.
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return showNotification("Please allow pop-ups to download the PDF.", "error");
 
     try {
-      const response = await api.post("/download-pdf", {
-        templateName: selectedTemplate.name,
-        data: aiData.aiResult
-      }, { responseType: "blob" });
+      const res = await fetch(`templates/${selectedTemplate.name}`);
+      if (!res.ok) throw new Error("Template not found");
+      let html = await res.text();
 
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `career_resume_${selectedTemplate.id}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-      showNotification("Resume downloaded successfully!", "success");
+      const fields = {
+        name: d.name,
+        email: d.email,
+        phone: d.phone,
+        summary: d.summary,
+        experience: d.experience,
+        education: d.education,
+        skills: Array.isArray(d.skills) ? d.skills.map(s => `<span>${s}</span>`).join("") : d.skills,
+        correctedText: d.correctedText,
+      };
+
+      for (const [key, val] of Object.entries(fields)) {
+        const value = (val === undefined || val === null || val === "") ? "N/A" : val;
+        html = html.replace(new RegExp(`{{\\s*${key}\\s*}}`, "g"), value);
+      }
+      // Replace any leftover placeholders the template may have.
+      html = html.replace(/{{\s*[^}]+\s*}}/g, "N/A");
+
+      printWindow.document.open();
+      printWindow.document.write(html);
+      printWindow.document.close();
+
+      let printed = false;
+      const doPrint = () => {
+        if (printed) return;
+        printed = true;
+        printWindow.focus();
+        printWindow.print();
+      };
+      printWindow.onload = () => setTimeout(doPrint, 400); // let fonts/styles settle
+      setTimeout(doPrint, 1200); // fallback if onload doesn't fire
+
+      showNotification("Print dialog opening — choose 'Save as PDF'.", "success");
     } catch (err) {
       console.error(err);
-      showNotification("PDF download failed!", "error");
+      try { printWindow.close(); } catch (e) {}
+      showNotification("PDF generation failed!", "error");
     }
   });
 

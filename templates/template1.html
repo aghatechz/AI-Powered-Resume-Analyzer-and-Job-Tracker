@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Template 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: linear-gradient(to bottom right, #fff, #f0f0f5);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      border-left: 10px solid #7f265b;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      color: #7f265b;
+      font-size: 36px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #7f265b;
+      margin-top: 5px;
+      border-radius: 2px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      width: 6px;
+      height: 100%;
+      background: #7f265b;
+      position: absolute;
+      left: -10px;
+      top: 0;
+      border-radius: 3px;
+    }
+
+    .section-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+    .section-content {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .skills span {
+      background: #7f265b;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .container::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(127,38,91,0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .container > * {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{name}}</h1>
+
+    <div class="section">
+      <div class="section-title">Email:</div>
+      <div class="section-content">{{email}}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Phone:</div>
+      <div class="section-content">{{phone}}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Experience:</div>
+      <div class="section-content">{{experience}}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Education:</div>
+      <div class="section-content">{{education}}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Skills:</div>
+      <div class="section-content">
+        <div class="skills">
+          {{skills}}
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

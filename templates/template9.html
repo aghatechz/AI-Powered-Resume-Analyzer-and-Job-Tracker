@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sophisticated Creative Resume</title>
+<style>
+/* --- Global Styles --- */
+body {
+    /* Subtle dark background */
+    background: #1c1c1c; 
+    /* Modern, clean font */
+    font-family: 'Montserrat', sans-serif; 
+    margin: 0;
+}
+
+/* --- Resume Container --- */
+.card {
+    max-width: 850px; 
+    /* Primary content background */
+    background: #282828; 
+    color: #f0f0f0; /* Light text on dark background */
+    margin: 50px auto;
+    padding: 0; /* Remove padding from card, apply to sections */
+    border-radius: 12px; /* Thoda kam rounded */
+    /* Deep but subtle shadow */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); 
+    overflow: hidden;
+}
+
+/* --- Header Section (Profile Banner) --- */
+.header {
+    background: #00bcd4; /* Vibrant Teal Accent Color */
+    color: #1c1c1c; /* Dark text for high contrast on Teal */
+    padding: 35px 40px;
+    margin-bottom: 0;
+    border-radius: 0; 
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1c1c1c; /* Ensuring contact info is dark and clear */
+    margin: 0;
+}
+
+/* --- Main Content Sections --- */
+.section {
+    margin-top: 30px;
+    padding: 0 40px; /* Apply left/right padding here */
+}
+
+.section:first-of-type {
+    margin-top: 30px;
+}
+
+.section h2 {
+    color: #00bcd4; /* Teal for Section Headings */
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #3a3a3a; /* Dark border for subtle separation */
+    display: block; /* Full width line */
+    margin-bottom: 15px;
+}
+
+/* --- Content Text --- */
+.section p {
+    color: #cccccc; /* Light grey for body text */
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* --- Skills Section Styling --- */
+.skills {
+    margin-top: 15px;
+    padding-bottom: 40px; /* Add padding at the very bottom of the card */
+}
+
+.skills span {
+    background: #00bcd4; /* Teal background for skills */
+    color: #1a1a1a; /* Dark text on skills */
+    padding: 8px 16px;
+    border-radius: 4px; /* Less rounded corners for professionalism */
+    margin: 5px 8px 5px 0;
+    display: inline-block;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.skills span:hover {
+    background: #0097a7; /* Darker teal on hover */
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <h1>{{name}}</h1>
+    <p>{{email}} | {{phone}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <p>{{experience}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <p>{{education}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <div class="skills">{{skills}}</div>
+  </div>
+</div>
+</body>
+</html>

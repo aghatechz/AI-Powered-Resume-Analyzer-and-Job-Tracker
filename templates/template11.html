@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Professional Resume – Modern Executive</title>
+<style>
+/* ===== Global ===== */
+body{
+    margin:0;
+    padding:0;
+    background:#ffffff;
+    font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+    color:#2c3e50;
+}
+
+/* ===== Main Container ===== */
+.resume{
+    max-width:900px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns: 32% 68%;
+    border:1px solid #e0e0e0;
+}
+
+/* ===== Left Sidebar ===== */
+.left{
+    background:#f4f6f8;
+    padding:35px 25px;
+}
+
+.left h1{
+    font-size:28px;
+    margin-bottom:5px;
+    color:#1a1a1a;
+}
+
+.left p{
+    font-size:14px;
+    color:#555;
+    margin-bottom:8px;
+}
+
+.block{
+    margin-top:30px;
+}
+
+.block h2{
+    font-size:15px;
+    letter-spacing:1px;
+    color:#34495e;
+    text-transform:uppercase;
+    border-bottom:1px solid #bdc3c7;
+    padding-bottom:5px;
+    margin-bottom:10px;
+}
+
+.skill{
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+/* ===== Right Content ===== */
+.right{
+    padding:35px 40px;
+}
+
+.section{
+    margin-bottom:30px;
+}
+
+.section h2{
+    font-size:18px;
+    color:#2c3e50;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    border-bottom:2px solid #2c3e50;
+    padding-bottom:5px;
+    margin-bottom:12px;
+}
+
+.section p{
+    font-size:15px;
+    line-height:1.6;
+    color:#444;
+}
+</style>
+</head>
+<body>
+
+<div class="resume">
+
+  <!-- LEFT -->
+  <div class="left">
+    <h1>{{name}}</h1>
+    <p>{{email}}</p>
+    <p>{{phone}}</p>
+
+    <div class="block">
+      <h2>Skills</h2>
+      <div class="skill">{{skills}}</div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <div class="section">
+      <h2>Experience</h2>
+      <p>{{experience}}</p>
+    </div>
+
+    <div class="section">
+      <h2>Education</h2>
+      <p>{{education}}</p>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

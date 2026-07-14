@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Template 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #0f172a;
+  padding: 0;
+}
+.container {
+  max-width: 800px;
+  margin: 60px auto;
+  background: #020617;
+  color: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+h1 {
+  font-size: 36px;
+  color: #38bdf8;
+  margin-bottom: 30px;
+}
+.section {
+  margin-bottom: 20px;
+  padding-left: 16px;
+  border-left: 4px solid #38bdf8;
+}
+.section-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #7dd3fc;
+}
+.section-content {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #e5e7eb;
+}
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.skills span {
+  background: #38bdf8;
+  color: #020617;
+  padding: 6px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>{{name}}</h1>
+
+  <div class="section">
+    <div class="section-title">Email</div>
+    <div class="section-content">{{email}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Phone</div>
+    <div class="section-content">{{phone}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+    <div class="section-content">{{experience}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="section-content">{{education}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills">{{skills}}</div>
+  </div>
+</div>
+</body>
+</html>

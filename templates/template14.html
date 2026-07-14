@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ATS Resume – Clean & Simple</title>
+<style>
+/* ===== Global ===== */
+body{
+    margin:0;
+    padding:0;
+    background:#ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color:#000;
+}
+
+/* ===== Resume Container ===== */
+.resume{
+    max-width:800px;
+    margin:40px auto;
+    padding:40px;
+}
+
+/* ===== Header ===== */
+h1{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.contact{
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+/* ===== Section ===== */
+.section{
+    margin-bottom:25px;
+}
+
+.section h2{
+    font-size:16px;
+    text-transform:uppercase;
+    border-bottom:1px solid #000;
+    padding-bottom:4px;
+    margin-bottom:10px;
+}
+
+.section p{
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* ===== Lists ===== */
+ul{
+    margin:0;
+    padding-left:18px;
+}
+
+li{
+    font-size:14px;
+    margin-bottom:6px;
+}
+</style>
+</head>
+<body>
+
+<div class="resume">
+
+  <h1>{{name}}</h1>
+  <div class="contact">
+    {{email}} | {{phone}} | {{location}}
+  </div>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <ul>
+      <li>{{experience}}</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <p>{{education}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <ul>
+      <li>{{skills}}</li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
