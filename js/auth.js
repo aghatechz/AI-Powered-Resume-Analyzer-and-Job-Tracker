@@ -1,5 +1,7 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/auth",
+    baseURL: `${API_ORIGIN}/api/auth`,
     headers: { "Content-Type": "application/json" },
 });
 

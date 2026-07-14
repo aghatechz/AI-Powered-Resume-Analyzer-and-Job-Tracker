@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 if (!localStorage.getItem("user")) {
   localStorage.setItem("user", JSON.stringify({
     name: 'Guest',
@@ -16,7 +18,7 @@ if (!localStorage.getItem("user")) {
 const token = localStorage.getItem("token");
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/dashboard",
+  baseURL: `${API_ORIGIN}/api/dashboard`,
   headers: {
     "Content-Type": "application/json",
     Authorization: token ? `Bearer ${token}` : "",
@@ -39,7 +41,7 @@ async function fetchUserProfileForDashboard() {
   if (!token) return;
 
   try {
-    const res = await axios.get('http://localhost:5000/api/profile/me', {
+    const res = await axios.get(`${API_ORIGIN}/api/profile/me`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -57,7 +59,7 @@ async function fetchUserProfileForDashboard() {
       avatar: data.avatar
         ? (data.avatar.startsWith('http')
           ? data.avatar
-          : `http://localhost:5000${data.avatar}`)
+          : `${API_ORIGIN}${data.avatar}`)
         : ''
     };
 
@@ -130,7 +132,7 @@ function updateUserUI() {
   const name = user.name || "Guest";
 
   if (user.avatar) {
-    userAvatar.src = user.avatar.includes('http') ? user.avatar : `http://localhost:5000${user.avatar}`;
+    userAvatar.src = user.avatar.includes('http') ? user.avatar : `${API_ORIGIN}${user.avatar}`;
   } else {
     userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=7f265b&color=fff`;
   }

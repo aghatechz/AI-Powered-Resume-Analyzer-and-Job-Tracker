@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 // ===== career.js =====
 document.addEventListener("DOMContentLoaded", () => {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -6,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 
   const api = axios.create({
-    baseURL: "http://localhost:5000/api/career",
+    baseURL: `${API_ORIGIN}/api/career`,
     headers: {
       "Content-Type": "application/json",
       authorization: token ? `Bearer ${token}` : "",

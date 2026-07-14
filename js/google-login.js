@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 window.onload = function () {
   google.accounts.id.initialize({
     client_id: "584630867834-itdnrnoupds35gg21ala11lcl3vfa5hd.apps.googleusercontent.com",
@@ -13,7 +15,7 @@ window.onload = function () {
   function handleCredentialResponse(response) {
     console.log("JWT token from Google:", response.credential);
 
-    axios.post("http://127.0.0.1:5000/api/auth/google-login", {
+    axios.post(`${API_ORIGIN}/api/auth/google-login`, {
       token: response.credential
     })
       .then(res => {

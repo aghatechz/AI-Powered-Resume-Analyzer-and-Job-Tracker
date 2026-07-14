@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 const token = localStorage.getItem("token");
 
 if (!token) {
@@ -6,7 +8,7 @@ if (!token) {
 
 async function fetchReportData() {
   try {
-    const response = await axios.get("http://localhost:5000/api/reports/stats", {
+    const response = await axios.get(`${API_ORIGIN}/api/reports/stats`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 

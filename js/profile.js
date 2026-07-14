@@ -1,4 +1,6 @@
- const API_BASE_URL = 'http://localhost:5000/api';
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
+ const API_BASE_URL = `${API_ORIGIN}/api`;
 const token = localStorage.getItem("token");
 
  let USER_ID = null;
@@ -117,8 +119,8 @@ async function loadProfileData() {
 
     profileData = response.data;
      const userData = JSON.parse(localStorage.getItem("user")) || {};
-    userData.avatar = profileData.avatar.startsWith('http') ? profileData.avatar : `http://localhost:5000${profileData.avatar}`;
-    userData.coverPhoto = profileData.coverPhoto.startsWith('http') ? profileData.coverPhoto : `http://localhost:5000${profileData.coverPhoto}`;
+    userData.avatar = profileData.avatar.startsWith('http') ? profileData.avatar : `${API_ORIGIN}${profileData.avatar}`;
+    userData.coverPhoto = profileData.coverPhoto.startsWith('http') ? profileData.coverPhoto : `${API_ORIGIN}${profileData.coverPhoto}`;
     localStorage.setItem('user', JSON.stringify(userData));
 
     renderProfile();
@@ -212,7 +214,7 @@ function renderProfile() {
    const avatarUrl = profileData.avatar && profileData.avatar.startsWith('http')
     ? profileData.avatar
     : profileData.avatar
-    ? `http://localhost:5000${profileData.avatar}?t=${Date.now()}`
+    ? `${API_ORIGIN}${profileData.avatar}?t=${Date.now()}`
     : `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.name)}&background=7f265b&color=fff`;
 
   elements.headerAvatar.src = avatarUrl;
@@ -221,7 +223,7 @@ function renderProfile() {
    const coverUrl = profileData.coverPhoto && profileData.coverPhoto.startsWith('http')
     ? profileData.coverPhoto
     : profileData.coverPhoto
-    ? `http://localhost:5000${profileData.coverPhoto}?t=${Date.now()}`
+    ? `${API_ORIGIN}${profileData.coverPhoto}?t=${Date.now()}`
     : `https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=300&fit=crop`;
 
   elements.coverPhoto.src = coverUrl;
@@ -744,7 +746,7 @@ async function handleImageUpload(file, type) {
 
     console.log('Upload response:', response.data);
 
-    const imageUrl = `http://localhost:5000${response.data.url}?t=${Date.now()}`;
+    const imageUrl = `${API_ORIGIN}${response.data.url}?t=${Date.now()}`;
 
      if (type === 'avatar') {
       profileData.avatar = imageUrl;

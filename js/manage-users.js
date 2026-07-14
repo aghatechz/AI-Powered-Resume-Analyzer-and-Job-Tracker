@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 const usersTableBody = document.getElementById("usersTableBody");
 const totalUsersEl = document.getElementById("totalUsers");
 const activeUsersEl = document.getElementById("activeUsers");
@@ -32,7 +34,7 @@ async function fetchUsers() {
     }
 
     try {
-        const response = await axios.get("http://localhost:5000/api/manage-users", {
+        const response = await axios.get(`${API_ORIGIN}/api/manage-users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -127,7 +129,7 @@ function closeEditModal() {
     e.preventDefault();
     const id = editUserId.value;
     try {
-        await axios.put(`http://localhost:5000/api/manage-users/${id}`, {
+        await axios.put(`${API_ORIGIN}/api/manage-users/${id}`, {
             name: editName.value,
             email: editEmail.value,
             role: editRole.value,
@@ -156,7 +158,7 @@ function closeDeleteModal() {
 
 async function confirmDelete() {
     try {
-        await axios.delete(`http://localhost:5000/api/manage-users/${deleteUserId}`, {
+        await axios.delete(`${API_ORIGIN}/api/manage-users/${deleteUserId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         });
         await fetchUsers();

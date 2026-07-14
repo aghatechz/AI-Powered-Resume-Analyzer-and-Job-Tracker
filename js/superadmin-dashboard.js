@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 const totalUsersEl = document.getElementById("totalUsers");
 const totalAdminsEl = document.getElementById("totalAdmins");
 const pendingInvitesEl = document.getElementById("pendingInvites");
@@ -19,17 +21,17 @@ let chartInstance;
   if (!token) return console.error("No token found");
 
   try {
-     const usersRes = await axios.get("http://localhost:5000/api/superadmin-dashboard/users", {
+     const usersRes = await axios.get(`${API_ORIGIN}/api/superadmin-dashboard/users`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     usersData = usersRes.data.users;
 
-     const adminsRes = await axios.get("http://localhost:5000/api/superadmin-dashboard/admins", {
+     const adminsRes = await axios.get(`${API_ORIGIN}/api/superadmin-dashboard/admins`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     adminsData = adminsRes.data.admins;
 
-     const invitesRes = await axios.get("http://localhost:5000/api/superadmin-dashboard/pending-invites", {
+     const invitesRes = await axios.get(`${API_ORIGIN}/api/superadmin-dashboard/pending-invites`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     invitesData = invitesRes.data.invites;
@@ -125,7 +127,7 @@ function closeInviteModal() {
   const message = document.getElementById("inviteMessage").value;
 
   try {
-    await axios.post("http://localhost:5000/api/superadmin-dashboard/invite-admin", {
+    await axios.post(`${API_ORIGIN}/api/superadmin-dashboard/invite-admin`, {
       email, role, message
     }, {
       headers: { Authorization: `Bearer ${token}` }
@@ -145,7 +147,7 @@ async function handleLogout() {
   
   if (token && user._id) {
     try {
-      await axios.post("http://localhost:5000/api/auth/logout", { userId: user._id });
+      await axios.post(`${API_ORIGIN}/api/auth/logout`, { userId: user._id });
     } catch (err) {
       console.error("Logout error:", err);
     }

@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 const token = localStorage.getItem("token");
 
 // Redirect if not logged in
@@ -6,7 +8,7 @@ if (!token) {
 }
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/profile",
+  baseURL: `${API_ORIGIN}/api/profile`,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
@@ -53,7 +55,7 @@ function updateUserUI() {
   const name = user.name || "Guest";
 
   if (user.avatar) {
-    userAvatar.src = user.avatar.includes('http') ? user.avatar : `http://localhost:5000${user.avatar}`;
+    userAvatar.src = user.avatar.includes('http') ? user.avatar : `${API_ORIGIN}${user.avatar}`;
   } else {
     userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=7f265b&color=fff`;
   }

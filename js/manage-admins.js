@@ -1,4 +1,6 @@
-const API_BASE_URL = "http://localhost:5000/api";  
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
+const API_BASE_URL = `${API_ORIGIN}/api`;  
 const token = localStorage.getItem("token");
 
 if (!token) {
@@ -213,7 +215,7 @@ document.getElementById("inviteForm").addEventListener("submit", async (e) => {
   const message = document.getElementById("inviteMessage").value;
 
   try {
-    const response = await axios.post("http://localhost:5000/api/superadmin-dashboard/invite-admin", {
+    const response = await axios.post(`${API_ORIGIN}/api/superadmin-dashboard/invite-admin`, {
       email, role, message
     }, {
       headers: { Authorization: `Bearer ${token}` }

@@ -1,3 +1,5 @@
+// API origin: local backend in dev, deployed backend in production.
+var API_ORIGIN = (window.API_ORIGIN = window.API_ORIGIN || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : 'https://ai-resume-job-tracker-backend.vercel.app'));
 let jobs = [];
 let isLoading = false;
 
@@ -19,7 +21,7 @@ async function fetchJobs() {
   isLoading = true;
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/jobs", {
+    const res = await axios.get(`${API_ORIGIN}/api/jobs`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -63,7 +65,7 @@ async function handleAddJob(e) {
   
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.post("http://localhost:5000/api/jobs", newJob, {
+    const res = await axios.post(`${API_ORIGIN}/api/jobs`, newJob, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -218,7 +220,7 @@ async function saveJob(id) {
 
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.put(`http://localhost:5000/api/jobs/${id}`, updatedJob, {
+    const res = await axios.put(`${API_ORIGIN}/api/jobs/${id}`, updatedJob, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -258,7 +260,7 @@ async function deleteJob(id) {
 
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.delete(`http://localhost:5000/api/jobs/${id}`, {
+    const res = await axios.delete(`${API_ORIGIN}/api/jobs/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
