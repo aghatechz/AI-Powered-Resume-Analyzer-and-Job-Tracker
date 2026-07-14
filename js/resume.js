@@ -139,33 +139,60 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== Download =====
+  // ===== Download PDF (client-side via the browser's print engine) =====
+  // Renders the chosen template in a new window and opens the print dialog,
+  // where the user picks "Save as PDF". Works on any host (no server Chromium).
   downloadBtn.addEventListener("click", async () => {
-    const templateName = selectedTemplate?.name || document.getElementById("template").value + ".html";
+    if (!selectedTemplate) return showNotification("Please select a template first!", "error");
+    if (!aiCorrectedData || !aiCorrectedData.name) {
+      return showNotification("Please analyze your resume first!", "info");
+    }
 
-    const data = {
-      name: aiCorrectedData.name?.trim() || "",
-      email: aiCorrectedData.email?.trim() || "",
-      phone: aiCorrectedData.phone?.trim() || "",
-      summary: aiCorrectedData.summary?.trim() || "",
-      experience: aiCorrectedData.experience?.trim() || "",
-      education: aiCorrectedData.education?.trim() || "",
-      skills: aiCorrectedData.skills?.trim() || "",
-    };
+    // Open the window synchronously (inside the click) so pop-up blockers allow it.
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return showNotification("Please allow pop-ups to download the PDF.", "error");
 
     try {
-      const response = await api.post("/download-pdf", { templateName, data }, { responseType: "blob" });
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "resume.pdf");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      showNotification("Resume downloaded successfully!", "success");
+      const res = await fetch(`templates/${selectedTemplate.name}`);
+      if (!res.ok) throw new Error("Template not found");
+      let html = await res.text();
+
+      const d = aiCorrectedData;
+      const fields = {
+        name: d.name,
+        email: d.email,
+        phone: d.phone,
+        summary: d.summary,
+        experience: d.experience,
+        education: d.education,
+        skills: Array.isArray(d.skills) ? d.skills.map(s => `<span>${s}</span>`).join("") : d.skills,
+      };
+
+      for (const [key, val] of Object.entries(fields)) {
+        const value = (val === undefined || val === null || String(val).trim() === "") ? "N/A" : val;
+        html = html.replace(new RegExp(`{{\\s*${key}\\s*}}`, "g"), value);
+      }
+      html = html.replace(/{{\s*[^}]+\s*}}/g, "N/A");
+
+      printWindow.document.open();
+      printWindow.document.write(html);
+      printWindow.document.close();
+
+      let printed = false;
+      const doPrint = () => {
+        if (printed) return;
+        printed = true;
+        printWindow.focus();
+        printWindow.print();
+      };
+      printWindow.onload = () => setTimeout(doPrint, 400); // let fonts/styles settle
+      setTimeout(doPrint, 1200); // fallback if onload doesn't fire
+
+      showNotification("Print dialog opening — choose 'Save as PDF'.", "success");
     } catch (error) {
       console.error("PDF download failed:", error);
-      showNotification("Failed to download resume. Please try again.", "error");
+      try { printWindow.close(); } catch (e) {}
+      showNotification("Failed to generate PDF. Please try again.", "error");
     }
   });
 
