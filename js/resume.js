@@ -101,19 +101,61 @@ document.addEventListener("DOMContentLoaded", () => {
       summary: result.aiResult?.summary || "N/A",
     };
 
+    const r = result.aiResult || {};
+
     aiResultDiv.style.display = "block";
-    scoreNumber.innerText = result.aiResult?.score ?? "N/A";
-    atsScore.innerText = result.aiResult?.atsScore ? result.aiResult.atsScore + "%" : "N/A";
-    correctedTextOutput.innerText = result.aiResult?.correctedText || "No corrected text returned.";
+    scoreNumber.innerText = r.score ?? "N/A";
+    correctedTextOutput.innerText = r.correctedText || "No corrected text returned.";
     document.getElementById("corrected-section").classList.add("active");
 
+    // ===== Overview metric cards =====
+    atsScore.innerText = (r.atsScore ?? r.atsScore === 0) ? r.atsScore + "%" : "--%";
+    const keywordScoreEl = document.getElementById("keywordScore");
+    const formatScoreEl = document.getElementById("formatScore");
+    const impactScoreEl = document.getElementById("impactScore");
+    if (keywordScoreEl) keywordScoreEl.innerText = r.keywordsMatched ?? (Array.isArray(r.keywords) ? r.keywords.length : "--");
+    if (formatScoreEl) formatScoreEl.innerText = (r.formatQuality != null) ? r.formatQuality + "%" : "--%";
+    if (impactScoreEl) impactScoreEl.innerText = (r.impactScore != null) ? r.impactScore + "%" : "--%";
+
+    // ===== Strengths tab =====
+    strengthsList.innerHTML = "";
+    if (Array.isArray(r.strengths) && r.strengths.length) {
+      r.strengths.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "strength-item";
+        div.innerHTML = `<strong>${i + 1}.</strong> ${item}`;
+        strengthsList.appendChild(div);
+      });
+    } else {
+      strengthsList.innerHTML = "<p>No strengths detected.</p>";
+    }
+
+    // ===== Improvements =====
     improvementsList.innerHTML = "";
-    result.aiResult?.suggestions?.forEach((item, index) => {
+    (r.suggestions || []).forEach((item, index) => {
       const div = document.createElement("div");
       div.className = "improvement-item";
       div.innerHTML = `<strong>${index + 1}.</strong> ${item}`;
       improvementsList.appendChild(div);
     });
+
+    // ===== Keywords tab =====
+    const keywordsContainer = document.getElementById("keywordsContainer");
+    if (keywordsContainer) {
+      keywordsContainer.innerHTML = "";
+      const kws = Array.isArray(r.keywords) ? r.keywords : [];
+      if (kws.length) {
+        kws.forEach(kw => {
+          const span = document.createElement("span");
+          span.className = "keyword-badge";
+          span.textContent = kw;
+          span.style.cssText = "display:inline-block;margin:4px;padding:6px 14px;background:#7f265b;color:#fff;border-radius:20px;font-size:13px;";
+          keywordsContainer.appendChild(span);
+        });
+      } else {
+        keywordsContainer.innerHTML = "<p>No keywords detected.</p>";
+      }
+    }
   };
 
   // ===== Analyze =====
