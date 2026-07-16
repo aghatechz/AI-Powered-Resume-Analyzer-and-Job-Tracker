@@ -2,7 +2,7 @@
 const API_ORIGIN =
   window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
-    : 'https://ai-resume-job-tracker-backend.vercel.app';
+    : 'https://server-xi-six-60.vercel.app';
 
 const CONFIG = {
   API_BASE_URL: API_ORIGIN + '/api',
