@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Reports - Super Admin</title>
   <link rel="stylesheet" href="css/superadmin-dashboard.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
   <style>
     .reports-grid {
       display: grid;
@@ -63,30 +66,99 @@
 
 <body>
 
-  <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>Super Admin</h2>
-    </div>
-    <ul class="menu">
-      <li><a href="superadmin-dashboard.html"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
-      <li><a href="manage-users.html"><i class="fas fa-users"></i> <span>Manage Users</span></a></li>
-      <li><a href="manage-admins.html"><i class="fas fa-user-shield"></i> <span>Manage Admins</span></a></li>
-      <li class="active"><a href="reports.html"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
-      <li><a href="#settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
-      <li class="logout"><a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span></a></li>
-    </ul>
-  </div>
-
-  <div class="main-content">
-    <header>
-      <div class="header-left">
-        <h1><i class="fas fa-chart-line"></i> System Reports</h1>
-        <p class="subtitle">Detailed analytics and platform performance</p>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
-        <button class="btn-primary" onclick="window.print()">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Super Admin</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="superadmin-dashboard.html">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="manage-users.html">
+            <i class="fas fa-users"></i>
+            <span>Manage Users</span>
+          </a>
+        </li>
+        <li>
+          <a href="manage-admins.html">
+            <i class="fas fa-user-shield"></i>
+            <span>Manage Admins</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="reports.html">
+            <i class="fas fa-chart-bar"></i>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="#" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1><i class="fas fa-chart-line"></i> System Reports</h1>
+          <p>Detailed analytics and platform performance</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
+        </div>
+        <button class="notifications-btn">
+          <i class="fas fa-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
+          <img id="userAvatar" alt="User Avatar"
+            onerror="this.src='https://ui-avatars.com/api/?name=Admin+User&background=0d6efd&color=fff'">
+          <div class="user-details">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="window.print()" style="margin-left: 12px;">
           <i class="fas fa-download"></i> Download PDF
         </button>
       </div>

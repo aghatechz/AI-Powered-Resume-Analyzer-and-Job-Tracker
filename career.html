@@ -4,122 +4,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job-Based Resume Polisher - AI Resume Tracker</title>
+  <title>Career Assistant - NextHire</title>
   <link rel="stylesheet" href="css/career.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
-  <div class="background-animation">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-    <div class="circle circle-3"></div>
-  </div>
-
-  <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>AI Resume Tracker</h2>
-    </div>
-    <ul class="menu">
-      <li>
-        <a href="dashboard.html">
-          <i class="fas fa-th-large"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-        <li class="active">
-        <a href="career.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Career Assistant</span>
-        </a>
-      </li>
-      <li>
-        <a href="resume.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Resume Analyzer</span>
-        </a>
-      </li>
-      <li>
-        <a href="jobs.html">
-          <i class="fas fa-briefcase"></i>
-          <span>Jobs Tracker</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li class="logout">
-        <a href="home.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="main-content">
-
-    <header class="navbar">
-      <div class="header-left">
-        <h1>Job-Based Resume Polisher</h1>
-        <p class="subtitle">Tailor your resume to match specific job requirements with AI</p>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="dashboard.html">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="career.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Career Assistant</span>
+          </a>
+        </li>
+        <li>
+          <a href="resume.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume Analyzer</span>
+          </a>
+        </li>
+        <li>
+          <a href="jobs.html">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs Tracker</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="home.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1>Career Assistant</h1>
+          <p>Tailor your resume to match specific job requirements with AI</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
         </div>
-        <div class="notifications">
+        <button class="notifications-btn">
           <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-info">
-          <div class="user-details">
-            <span class="user-name">John Doe</span>
-            <span class="user-role">Premium User</span>
-          </div>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
           <img id="userAvatar" alt="User Avatar"
-            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+            onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff'">
+          <div class="user-details">
+            <span class="user-name">User</span>
+            <span class="user-role">Member</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <div class="resume-container">
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
       <div class="page-header">
-        <div class="header-icon">
+        <div class="page-header-icon">
           <i class="fas fa-magic"></i>
         </div>
-        <h2>Job-Based Resume Polisher</h2>
-        <p>Upload your resume and paste the job description to get an optimized, ATS-friendly version!</p>
+        <div>
+          <h2>Job-Based Resume Polisher</h2>
+          <p>Upload your resume and paste the job description to get an optimized, ATS-friendly version</p>
+        </div>
       </div>
 
-      <section class="resume-section">
-        
-        <div class="dual-input-container">
-          
-          <!-- Resume Input Section -->
-          <div class="input-column">
-            <h3 class="column-title"><i class="fas fa-file-alt"></i> Your Resume</h3>
-            
+      <!-- Input Section -->
+      <section class="polish-section">
+
+        <div class="input-grid">
+
+          <!-- Resume Input -->
+          <div class="input-card">
+            <div class="input-card-header">
+              <i class="fas fa-file-alt"></i>
+              <span>Your Resume</span>
+            </div>
+
             <div class="input-tabs">
               <button class="tab-btn active" data-tab="text">Paste Text</button>
               <button class="tab-btn" data-tab="upload">Upload File</button>
             </div>
 
             <div class="tab-content active" id="text-tab">
-              <div class="textarea-wrapper">
+              <div class="textarea-wrap">
                 <textarea id="resumeTextInput" placeholder="Paste your resume here..."></textarea>
                 <div class="char-counter"><span id="charCount">0</span> characters</div>
               </div>
@@ -129,7 +159,7 @@
               <div class="upload-area" id="uploadArea">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <h3>Drag & Drop your resume</h3>
-                <p>or click to browse</p>
+                <p>or click to browse — PDF, DOCX, or TXT</p>
                 <input type="file" id="resumeFileInput" accept=".pdf,.doc,.docx,.txt" style="display:none;">
                 <button type="button" class="browse-btn" onclick="document.getElementById('resumeFileInput').click()">Browse Files</button>
               </div>
@@ -141,10 +171,13 @@
             </div>
           </div>
 
-          <!-- Job Description Input Section -->
-          <div class="input-column">
-            <h3 class="column-title"><i class="fas fa-briefcase"></i> Job Description</h3>
-            <div class="textarea-wrapper full-height">
+          <!-- Job Description Input -->
+          <div class="input-card">
+            <div class="input-card-header">
+              <i class="fas fa-briefcase"></i>
+              <span>Job Description</span>
+            </div>
+            <div class="textarea-wrap full-height">
               <textarea id="jobDescInput" placeholder="Paste the job description here..."></textarea>
               <div class="char-counter"><span id="jobCharCount">0</span> characters</div>
             </div>
@@ -152,94 +185,95 @@
 
         </div>
 
-        <button id="polishBtn" class="btn"><i class="fas fa-magic"></i> Polish Resume</button>
+        <button id="polishBtn" class="polish-btn"><i class="fas fa-magic"></i> Polish Resume</button>
 
-        <div class="quick-tips">
-          <div class="tip-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <div class="tip-content">
+        <div class="tip-card">
+          <i class="fas fa-lightbulb"></i>
+          <div>
             <strong>Pro Tip:</strong> Include the complete job description for best results. Our AI will match keywords, optimize formatting, and highlight relevant experience.
           </div>
         </div>
+
       </section>
 
       <!-- Loading State -->
       <div class="loading-state" id="loadingState" style="display: none;">
-        <div class="loading-animation">
-          <div class="resume-icon">
-            <i class="fas fa-file-alt"></i>
-          </div>
-          <div class="desk-line"></div>
-          <div class="recruiter-icon">
-            <i class="fas fa-user-tie"></i>
-          </div>
+        <div class="loading-spinner">
+          <i class="fas fa-file-alt"></i>
+          <i class="fas fa-arrow-right"></i>
+          <i class="fas fa-user-tie"></i>
         </div>
         <p id="loadingText">Reading your resume file...</p>
       </div>
 
       <!-- AI Result Section -->
-      <section class="ai-result" id="aiResult" style="display: none;">
-        
+      <section class="result-section" id="aiResult" style="display: none;">
+
         <!-- Score Card -->
-        <div class="score-card">
-          <div class="score-circle" id="scoreCircle">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" class="score-bg"></circle>
-              <circle cx="50" cy="50" r="45" class="score-progress" id="scoreProgress"></circle>
+        <div class="score-card-modern">
+          <div class="score-ring-wrap">
+            <svg viewBox="0 0 120 120" class="score-svg">
+              <circle cx="60" cy="60" r="50" class="score-track"/>
+              <circle cx="60" cy="60" r="50" class="score-fill" id="scoreProgress"/>
             </svg>
-            <div class="score-text">
+            <div class="score-text-wrap">
               <span class="score-number" id="improvedScore">0</span>
               <span class="score-label">Score</span>
             </div>
           </div>
-          <div class="score-details">
+          <div class="score-info">
             <h3>Improved Resume Score</h3>
             <p id="scoreDescription">Your resume has been optimized for the job</p>
-              <p>ATS Score: <span id="atsScore">0</span></p>  <!-- Add this line -->
+            <div class="score-meta">
+              <span>ATS Score: <strong id="atsScore">0</strong></span>
+            </div>
           </div>
         </div>
 
         <!-- Output Grid -->
         <div class="output-grid">
-          
-          <!-- AI Improvements -->
-          <div class="output-card improvements-card">
-            <h3><i class="fas fa-check-circle"></i> AI Improvements</h3>
+
+          <div class="output-card">
+            <div class="output-card-header">
+              <i class="fas fa-check-circle"></i>
+              <h3>AI Improvements</h3>
+            </div>
             <div id="improvementList" class="improvements-list"></div>
           </div>
 
-          <!-- Corrected Resume -->
-          <div class="output-card corrected-card">
-            <h3><i class="fas fa-file-alt"></i> Optimized Resume</h3>
-<textarea id="correctedResumeOutput" class="corrected-textarea" style="width:100%; height:400px;" placeholder="Your optimized resume will appear here..."></textarea>
+          <div class="output-card">
+            <div class="output-card-header">
+              <i class="fas fa-file-alt"></i>
+              <h3>Optimized Resume</h3>
+            </div>
+            <textarea id="correctedResumeOutput" class="optimized-textarea" placeholder="Your optimized resume will appear here..."></textarea>
           </div>
 
         </div>
 
-        <!-- Template Selection -->
-        <button id="viewTemplateBtn" class="btn-secondary">
-          <i class="fas fa-th"></i> Select Template
-        </button>
+        <!-- Actions -->
+        <div class="result-actions">
+          <button id="viewTemplateBtn" class="action-btn secondary">
+            <i class="fas fa-th"></i> Select Template
+          </button>
 
-        <!-- Download Buttons -->
-        <div class="download-buttons">
-          <button id="downloadPdfBtn" class="btn">
-            <i class="fas fa-file-pdf"></i> Download as PDF
-          </button>
-          <button id="downloadDocBtn" class="btn btn-outline">
-            <i class="fas fa-file-word"></i> Download as DOCX
-          </button>
-        </div>
+          <div class="download-row">
+            <button id="downloadPdfBtn" class="action-btn primary">
+              <i class="fas fa-file-pdf"></i> Download as PDF
+            </button>
+            <button id="downloadDocBtn" class="action-btn outline">
+              <i class="fas fa-file-word"></i> Download as DOCX
+            </button>
+          </div>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-          <button id="shareResultsBtn" class="action-btn secondary">
-            <i class="fas fa-share"></i> Share Results
-          </button>
-          <button class="action-btn" onclick="location.reload()">
-            <i class="fas fa-redo"></i> Polish Another
-          </button>
+          <div class="action-row">
+            <button id="shareResultsBtn" class="action-btn ghost">
+              <i class="fas fa-share"></i> Share Results
+            </button>
+            <button class="action-btn ghost" onclick="location.reload()">
+              <i class="fas fa-redo"></i> Polish Another
+            </button>
+          </div>
         </div>
 
       </section>
@@ -342,7 +376,7 @@
       <img id="previewImg" src="" alt="Template Preview">
     </div>
 
-  </div>
+  </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>

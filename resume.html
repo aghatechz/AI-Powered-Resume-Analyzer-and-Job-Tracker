@@ -4,93 +4,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume Analyzer - AI Resume Tracker</title>
+  <title>Resume Analyzer - NextHire</title>
   <link rel="stylesheet" href="css/resume.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
-  <div class="background-animation">
-    <div class="circle circle-1"></div>
-    <div class="circle circle-2"></div>
-    <div class="circle circle-3"></div>
-  </div>
-
-  <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>AI Resume Tracker</h2>
-    </div>
-    <ul class="menu">
-      <li>
-        <a href="dashboard.html">
-          <i class="fas fa-th-large"></i>
-          <span>Dashboard</span>
-        </a>
-      <li>
-        <a href="career.html">
-          <i class="fas fa-file-alt"></i>
-          <span>career Assistant</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="resume.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Resume Analyzer</span>
-        </a>
-      </li>
-      <li>
-        <a href="jobs.html">
-          <i class="fas fa-briefcase"></i>
-          <span>Jobs Tracker</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li class="logout">
-        <a href="home.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="main-content">
-
-    <header class="navbar">
-      <div class="header-left">
-        <h1>Resume Analyzer</h1>
-        <p class="subtitle">Get AI-powered resume improvement suggestions</p>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="dashboard.html">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="career.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Career Assistant</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="resume.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume Analyzer</span>
+          </a>
+        </li>
+        <li>
+          <a href="jobs.html">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs Tracker</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="home.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1>Resume Analyzer</h1>
+          <p>Get AI-powered resume improvement suggestions</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
         </div>
-        <div class="notifications">
+        <button class="notifications-btn">
           <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-info">
-          <div class="user-details">
-            <span class="user-name">John Doe</span>
-            <span class="user-role">Premium User</span>
-          </div>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
           <img id="userAvatar" alt="User Avatar"
-            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+            onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff'">
+          <div class="user-details">
+            <span class="user-name">User</span>
+            <span class="user-role">Member</span>
+          </div>
         </div>
       </div>
     </header>
@@ -216,7 +238,7 @@
           <div class="content-section" id="corrected-section">
             <h3 style="margin-bottom:10px;">AI Corrected Resume</h3>
             <pre id="correctedTextOutput"
-              style="white-space: pre-wrap; background:#7f265b; color:#ededed; padding:15px; border-radius:10px; font-size:14px;"></pre>
+              style="white-space: pre-wrap; background:#1e293b; color:#e2e8f0; padding:15px; border-radius:10px; font-size:14px;"></pre>
           </div>
 
           <div id="suggestions-container" style="margin-top:20px;">
@@ -337,12 +359,13 @@
         </div>
 
 
-    </div>
-    </section>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
-    <script src="js/resume.js"></script>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+  <script src="js/resume.js"></script>
 
 </body>
 

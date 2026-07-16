@@ -16,7 +16,7 @@ if (token) {
  if (!USER_ID || !token) {
   console.error('User not logged in!');
   alert('Please login first');
-  window.location.href = '../public/home.html';
+  window.location.href = 'index.html';
 }
  let profileData = {};
 let currentEditSection = null;
@@ -24,10 +24,8 @@ let currentEditSection = null;
  const elements = {
   loadingOverlay: document.getElementById('loadingOverlay'),
   notificationToast: document.getElementById('notificationToast'),
-  toastMessage: document.getElementById('toastMessage'),
-
-   headerUserName: document.getElementById('headerUserName'),
-  headerAvatar: document.getElementById('headerAvatar'),
+  toastMessage: document.getElementById('toastMessage'),headerUserName: document.querySelector('.user-name'),
+   headerAvatar: document.getElementById('userAvatar'),
 
    coverPhoto: document.getElementById('coverPhoto'),
   coverPhotoInput: document.getElementById('coverPhotoInput'),
@@ -118,9 +116,11 @@ async function loadProfileData() {
     });
 
     profileData = response.data;
-     const userData = JSON.parse(localStorage.getItem("user")) || {};
-    userData.avatar = profileData.avatar.startsWith('http') ? profileData.avatar : `${API_ORIGIN}${profileData.avatar}`;
-    userData.coverPhoto = profileData.coverPhoto.startsWith('http') ? profileData.coverPhoto : `${API_ORIGIN}${profileData.coverPhoto}`;
+    const userData = JSON.parse(localStorage.getItem("user")) || {};
+    const avatar = profileData.avatar || '';
+    userData.avatar = avatar && avatar.startsWith('http') ? avatar : (avatar ? `${API_ORIGIN}${avatar}` : '');
+    const cover = profileData.coverPhoto || '';
+    userData.coverPhoto = cover && cover.startsWith('http') ? cover : (cover ? `${API_ORIGIN}${cover}` : '');
     localStorage.setItem('user', JSON.stringify(userData));
 
     renderProfile();
@@ -146,7 +146,7 @@ async function loadProfileData() {
     website: 'www.johndoe.com',
     linkedin: 'linkedin.com/in/johndoe',
     github: 'github.com/johndoe',
-    avatar: 'https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff&size=150',
+    avatar: 'https://ui-avatars.com/api/?name=John+Doe&background=0d6efd&color=fff&size=150',
     coverPhoto: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=300&fit=crop',
     skills: [
       'JavaScript', 'React', 'Node.js', 'Python', 'TypeScript',
@@ -206,41 +206,42 @@ async function loadProfileData() {
 }
 
 function renderProfile() {
-   profileData.avatar = profileData.avatar || "";
-  profileData.coverPhoto = profileData.coverPhoto || "";
+  const name = profileData.name || 'User';
+  const avatarBase = profileData.avatar || '';
+  const coverBase = profileData.coverPhoto || '';
 
-   elements.headerUserName.textContent = profileData.name;
+  elements.headerUserName.textContent = name;
 
-   const avatarUrl = profileData.avatar && profileData.avatar.startsWith('http')
-    ? profileData.avatar
-    : profileData.avatar
-    ? `${API_ORIGIN}${profileData.avatar}?t=${Date.now()}`
-    : `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.name)}&background=7f265b&color=fff`;
+  const avatarUrl = avatarBase && avatarBase.startsWith('http')
+    ? avatarBase + '?t=' + Date.now()
+    : avatarBase
+    ? `${API_ORIGIN}${avatarBase}?t=${Date.now()}`
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0d6efd&color=fff`;
 
-  elements.headerAvatar.src = avatarUrl;
-  elements.profileAvatar.src = avatarUrl;
+  if (elements.headerAvatar) elements.headerAvatar.src = avatarUrl;
+  if (elements.profileAvatar) elements.profileAvatar.src = avatarUrl;
 
-   const coverUrl = profileData.coverPhoto && profileData.coverPhoto.startsWith('http')
-    ? profileData.coverPhoto
-    : profileData.coverPhoto
-    ? `${API_ORIGIN}${profileData.coverPhoto}?t=${Date.now()}`
+  const coverUrl = coverBase && coverBase.startsWith('http')
+    ? coverBase + '?t=' + Date.now()
+    : coverBase
+    ? `${API_ORIGIN}${coverBase}?t=${Date.now()}`
     : `https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=300&fit=crop`;
 
-  elements.coverPhoto.src = coverUrl;
+  if (elements.coverPhoto) elements.coverPhoto.src = coverUrl;
 
-   elements.profileName.textContent = profileData.name;
-  elements.profileTitle.textContent = profileData.title;
-  elements.profileLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${profileData.location}`;
+  if (elements.profileName) elements.profileName.textContent = name;
+  if (elements.profileTitle) elements.profileTitle.textContent = profileData.title || '';
+  if (elements.profileLocation) elements.profileLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${profileData.location || ''}`;
 
-   elements.aboutText.textContent = profileData.about;
+  if (elements.aboutText) elements.aboutText.textContent = profileData.about || '';
 
-   elements.contactEmail.textContent = profileData.email;
-  elements.contactPhone.textContent = profileData.phone;
-  elements.contactWebsite.textContent = profileData.website;
-  elements.contactLinkedin.textContent = profileData.linkedin;
-  elements.contactGithub.textContent = profileData.github;
+  if (elements.contactEmail) elements.contactEmail.textContent = profileData.email || '';
+  if (elements.contactPhone) elements.contactPhone.textContent = profileData.phone || '';
+  if (elements.contactWebsite) elements.contactWebsite.textContent = profileData.website || '';
+  if (elements.contactLinkedin) elements.contactLinkedin.textContent = profileData.linkedin || '';
+  if (elements.contactGithub) elements.contactGithub.textContent = profileData.github || '';
 
-   renderSkills();
+  renderSkills();
   renderExperience();
   renderEducation();
 }
@@ -248,7 +249,8 @@ function renderProfile() {
 
 
  function renderSkills() {
-  elements.skillsGrid.innerHTML = profileData.skills
+  const skills = profileData.skills || [];
+  elements.skillsGrid.innerHTML = skills
     .map(skill => `<div class="skill-tag">${skill}</div>`)
     .join('');
 }
@@ -668,11 +670,7 @@ window.removeEducation = function (index) {
       Object.assign(profileData, response.data.user);
     } else {
       Object.assign(profileData, updatedData);
-    }
-
-     renderProfile();
-    closeModal();
- renderProfile();
+    } renderProfile();
 closeModal();
 
  const userData = JSON.parse(localStorage.getItem('user')) || {};
@@ -699,8 +697,6 @@ console.log('LocalStorage updated user:', localStorage.getItem('user'));
  window.dispatchEvent(new Event('profileUpdated'));
 
 showNotification('Profile updated successfully!', 'success');
-
-    showNotification('Profile updated successfully!', 'success');
 
   } catch (error) {
     console.error('Error saving profile:', error);
@@ -862,10 +858,11 @@ const closePreview = document.getElementById('closePreview');
 
 // Avatar & Cover images
 const profileAvatar = document.getElementById('profileAvatar');
-const coverPhoto = document.getElementById('coverPhoto');
+const coverPhotoEl = document.getElementById('coverPhoto');
 
 // Function to open preview
 function openImagePreview(src, type) {
+  if (!imagePreviewModal || !previewImage) return;
   previewImage.src = src;
 
   // Add specific class for avatar or cover
@@ -882,24 +879,72 @@ function openImagePreview(src, type) {
 
 // Close modal
 function closeImagePreview() {
+  if (!imagePreviewModal || !previewImage) return;
   imagePreviewModal.classList.remove('active');
   previewImage.src = '';
 }
 
 // Event listeners
-profileAvatar.addEventListener('click', () => {
-  openImagePreview(profileAvatar.src, 'avatar');
-});
+if (profileAvatar) {
+  profileAvatar.addEventListener('click', () => {
+    openImagePreview(profileAvatar.src, 'avatar');
+  });
+}
 
-coverPhoto.addEventListener('click', () => {
-  openImagePreview(coverPhoto.src, 'cover');
-});
+if (coverPhotoEl) {
+  coverPhotoEl.addEventListener('click', () => {
+    openImagePreview(coverPhotoEl.src, 'cover');
+  });
+}
 
-closePreview.addEventListener('click', closeImagePreview);
+if (closePreview) {
+  closePreview.addEventListener('click', closeImagePreview);
+}
 
 // Click outside image closes modal
-imagePreviewModal.addEventListener('click', (e) => {
-  if (e.target === imagePreviewModal) {
-    closeImagePreview();
+if (imagePreviewModal) {
+  imagePreviewModal.addEventListener('click', (e) => {
+    if (e.target === imagePreviewModal) {
+      closeImagePreview();
+    }
+  });
+}
+
+// Mobile sidebar toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  if (mobileMenuToggle && sidebar && sidebarOverlay) {
+    mobileMenuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenuToggle.classList.toggle('active');
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+      sidebarOverlay.setAttribute('aria-hidden', !isOpen);
+    });
+
+    // Close sidebar when clicking overlay
+    sidebarOverlay.addEventListener('click', () => {
+      mobileMenuToggle.classList.remove('active');
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      sidebarOverlay.setAttribute('aria-hidden', 'true');
+    });
+
+    // Close sidebar when clicking a menu link on mobile
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 992) {
+          mobileMenuToggle.classList.remove('active');
+          sidebar.classList.remove('open');
+          sidebarOverlay.classList.remove('active');
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          sidebarOverlay.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
   }
 });

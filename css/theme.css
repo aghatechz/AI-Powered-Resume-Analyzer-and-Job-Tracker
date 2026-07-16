@@ -1,0 +1,287 @@
+/* ==========================================================================
+   CYTRIO-INSPIRED DESIGN SYSTEM — "Trust & Clarity"
+   --------------------------------------------------------------------------
+   Single source of truth for colour, type, spacing, radius, elevation,
+   and surface hierarchy.  This file is linked LAST on every page so its
+   :root tokens win the cascade over per-page :root blocks.
+
+   Inspired by Cytrio — clean, enterprise B2B SaaS aesthetic with a
+   trustworthy deep-blue palette, crisp white surfaces, and a signature
+   pink accent for personality.
+
+   Creative North Star:  "Trust & Clarity"
+     Enterprise-grade reliability × clean, modern SaaS UI.
+     Generous whitespace, tonal layering, deliberate accents.
+   ========================================================================== */
+
+:root {
+  /* ==================================================================
+     1.  BRAND — Blue ramp (Cytrio-inspired)
+     ================================================================== */
+  --blue-50:   #e8f4ff;     /* lightest tint – also used as surface */
+  --blue-100:  #cce7ff;
+  --blue-200:  #99cfff;
+  --blue-300:  #66b8ff;
+  --blue-400:  #33a0ff;
+  --blue-500:  #1793ff;     /* Cytrio action blue */
+  --blue-600:  #0d6efd;     /* PRIMARY – trustworthy authority */
+  --blue-700:  #0a58ca;     /* PRIMARY DARK  */
+  --blue-800:  #084298;
+  --blue-900:  #052c64;
+
+  /* Primary container – used in signature gradients & CTA backgrounds */
+  --blue-container: #3399ff;
+
+  /* ==================================================================
+     2.  NEUTRALS — Blue-tinted greys (clear, professional)
+     ================================================================== */
+  --white:      #ffffff;
+  --ink-50:     #f8f9fb;
+  --ink-100:    #e9ecef;
+  --ink-200:    #d1d7de;
+  --ink-300:    #aab4c1;
+  --ink-400:    #8a94a6;
+  --ink-500:    #6c7588;
+  --ink-600:    #4f5668;
+  --ink-700:    #363d4a;
+  --ink-800:    #1d252d;     /* on_surface – Cytrio dark navy */
+  --ink-900:    #141a21;
+  --ink-950:    #0b0f13;
+  --black:      #000000;
+
+  /* ==================================================================
+     3.  SURFACE HIERARCHY — Clean, neutral, blue-tinted
+         Boundaries are defined by background shifts, never 1px borders.
+     ================================================================== */
+  --surface:                  var(--ink-50);       /* #f8f9fb – base canvas */
+  --surface-container:        var(--ink-50);       /* same as base for section start */
+  --surface-container-low:    #f0f2f5;              /* section change indicator */
+  --surface-container-lowest: var(--white);          /* cards – soft lift */
+  --surface-container-high:   #e2e6ec;              /* elevated surface */
+  --surface-container-highest:#d4d9e2;              /* highest surface */
+  --surface-bright:           var(--white);          /* active/highlight states */
+  --surface-dim:              #e8ecf1;              /* subtle dim */
+
+  /* Legacy surface aliases (existing CSS uses these) */
+  --bg:          var(--surface);
+  --surface-2:   var(--surface-container-low);
+  --surface-3:   var(--surface-container-high);
+
+  /* ==================================================================
+     4.  SEMANTIC TEXT
+     ================================================================== */
+  --text:           var(--ink-900);     /* on_surface #141a21 */
+  --text-muted:     var(--ink-600);     /* #4f5668 */
+  --text-subtle:    var(--ink-500);     /* #6c7588 */
+  --text-on-dark:   var(--white);
+  --text-on-primary:var(--white);
+
+  /* ==================================================================
+     5.  SEMANTIC COLOUR TOKENS
+     ================================================================== */
+  --primary:             var(--blue-600);       /* #0d6efd – Cytrio-inspired blue */
+  --primary-dark:        var(--blue-700);       /* #0a58ca */
+  --primary-light:       var(--blue-500);       /* #1793ff */
+  --primary-container:   var(--blue-400);       /* #33a0ff */
+  --on-primary:          var(--white);
+  --secondary:           var(--ink-100);        /* #e9ecef */
+  --secondary-container: #d4e1f5;               /* light blue-tinted */
+  --on-secondary-container: #0a58ca;
+  --tertiary:            #4f5668;               /* neutral */
+  --accent:              #cc3366;               /* Cytrio signature pink */
+
+  /* Status */
+  --success:    #0f9d58;
+  --success-bg: #e7f6ee;
+  --warning:    #b7791f;
+  --warning-bg: #fdf6e3;
+  --danger:     #d92d20;
+  --danger-bg:  #fdecea;
+  --info:       var(--blue-700);       /* #0a58ca */
+  --info-bg:    var(--blue-50);        /* #e8f4ff */
+
+  /* ==================================================================
+     6.  BORDERS & OUTLINES (the "Ghost Border" system)
+         Solid 1px borders are PROHIBITED per the design system.
+         Use outline_variant at low opacity when a visible boundary
+         is absolutely required (e.g. accessibility).
+     ================================================================== */
+  --border:          var(--ink-200);               /* legacy alias – will phase out */
+  --border-strong:   var(--ink-300);
+  --outline:         var(--ink-400);
+  --outline-variant: #bcc3cc;                      /* Ghost Border colour */
+
+  /* ==================================================================
+     7.  GRADIENTS
+     ================================================================== */
+  --gradient-bg:      var(--surface);
+  --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+  --gradient-ink:     linear-gradient(135deg, var(--ink-950) 0%, var(--ink-800) 100%);
+
+  /* Legacy aliases — keep for backward compat */
+  --text-dark:  var(--text);       /* home.css uses this */
+  --text-light: var(--text-muted);
+
+  /* ==================================================================
+     8.  ELEVATION — Blue-tinted shadows (not neutral black)
+     ================================================================== */
+  --blue-shadow: rgba(13, 110, 253, 0.08);
+  --blue-shadow-strong: rgba(13, 110, 253, 0.15);
+
+  --shadow:         var(--blue-shadow);
+  --shadow-xs:      0 1px 2px var(--blue-shadow);
+  --shadow-sm:      0 1px 3px var(--blue-shadow), 0 1px 2px rgba(13, 110, 253, 0.04);
+  --shadow-md:      0 4px 12px var(--blue-shadow);
+  --shadow-lg:      0 8px 24px var(--blue-shadow-strong);
+  --shadow-elevated: 0 12px 32px var(--blue-shadow-strong);
+  --shadow-ring:   0 0 0 3px rgba(13, 110, 253, 0.20);
+
+  /* ==================================================================
+     9.  GLASSMORPHISM (for floating nav, modals, overlays)
+     ================================================================== */
+  --glass-bg:       rgba(255, 255, 255, 0.75);
+  --glass-bg-strong:rgba(255, 255, 255, 0.92);
+  --glass-blur:     blur(20px);
+  --glass-border:   rgba(188, 195, 204, 0.20);   /* ghost border @ 20% */
+
+  /* ==================================================================
+     10. RADIUS
+     ================================================================== */
+  --radius-xs:   6px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-pill: 9999px;
+
+  /* ==================================================================
+     11. TYPOGRAPHY — Plus Jakarta Sans scale
+          Display: tight letter-spacing (-0.02em) for premium editorial feel.
+          Label:   all-caps with +0.05em for metadata.
+          Body:    line-height 1.6–1.8 for readability.
+     ================================================================== */
+  --font-sans:     "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Type scale */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+  --text-4xl:  2.25rem;    /* 36px */
+
+  /* Fluid display sizes — scale with viewport */
+  --display-sm: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --display-md: clamp(1.875rem, 1.4rem + 2.2vw, 2.75rem);
+  --display-lg: clamp(2.25rem, 1.5rem + 3.4vw, 3.75rem);
+
+  /* Leading */
+  --leading-tight:  1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed:1.8;
+
+  /* Letter-spacing utilities */
+  --tracking-display: -0.02em;    /* Display / Big Idea moments */
+  --tracking-label:    0.05em;    /* Labels – all-caps metadata */
+
+  /* Transition */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   BASE LAYER — "Trust & Clarity" canvas
+   ========================================================================== */
+
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display / editorial headings — tight tracking for magazine feel */
+h1.display-lg,
+h1.display-md,
+h1.display-sm,
+.display-lg,
+.display-md,
+.display-sm {
+  letter-spacing: var(--tracking-display);
+}
+
+/* Labels — all-caps metadata with wide tracking */
+label,
+.label-sm,
+.label-md,
+.meta-label,
+.sidebar ul.menu li a span[class*="label"],
+.filter-group label,
+.form-group label {
+  letter-spacing: var(--tracking-label);
+}
+
+h1, h2, h3, h4, h5, h6, p, li, a, span, td, th, label {
+  overflow-wrap: break-word;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   GLASS – reusable glassmorphism surface
+   Use on floating nav bars, modals, overlay cards.
+   ========================================================================== */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+/* ==========================================================================
+   GHOST BORDER — accessible fallback when a visible boundary is required.
+   Usage:  border: 1px solid var(--ghost-border);
+   ========================================================================== */
+
+.ghost-border {
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 20%, transparent);
+  /* fallback for browsers without color-mix support */
+  border: 1px solid rgba(188, 195, 204, 0.20);
+}
+
+/* ==========================================================================
+   HIGH CONTRAST — darker blue against white, on_surface text.
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --primary:           var(--blue-800);   /* #084298 */
+    --primary-dark:      var(--blue-900);   /* #052c64 */
+    --primary-container: var(--blue-600);   /* #0d6efd */
+    --text:              var(--black);
+    --text-muted:        var(--ink-800);
+    --border:            var(--ink-500);
+    --outline-variant:   var(--ink-500);
+    --surface:           var(--white);
+    --surface-container: var(--white);
+    --surface-container-low: var(--ink-50);
+    --glass-bg:          rgba(255, 255, 255, 0.95);
+  }
+
+  .ghost-border {
+    border: 1px solid var(--outline-variant);
+  }
+}

@@ -4,302 +4,347 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - AI Resume Tracker</title>
+  <title>Dashboard - NextHire</title>
   <link rel="stylesheet" href="css/dashboard.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
-  <div class="bg-shapes">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>AI Resume Tracker</h2>
-    </div>
-    <ul class="menu">
-      <li class="active">
-        <a href="#">
-          <i class="fas fa-th-large"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a href="career.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Career Assistant</span>
-        </a>
-      </li>
-      <li>
-        <a href="resume.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Resume Analyzer</span>
-        </a>
-      </li>
-      <li>
-        <a href="jobs.html">
-          <i class="fas fa-briefcase"></i>
-          <span>Jobs Tracker</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li class="logout">
-        <a href="home.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="main-content">
-
-    <header>
-      <div class="header-left">
-        <h1>Dashboard</h1>
-        <p class="subtitle">Welcome back! Here's your overview</p>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li class="active">
+          <a href="#">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="career.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Career Assistant</span>
+          </a>
+        </li>
+        <li>
+          <a href="resume.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume Analyzer</span>
+          </a>
+        </li>
+        <li>
+          <a href="jobs.html">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs Tracker</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="home.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1>Dashboard</h1>
+          <p>Welcome back, <span class="user-name-header">User</span></p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
         </div>
-        <div class="notifications">
+        <button class="notifications-btn">
           <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-info">
-          <div class="user-details">
-            <span class="user-name">John Doe</span>
-            <span class="user-role">Premium User</span>
-          </div>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
           <img id="userAvatar" alt="User Avatar"
-            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+            onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff'">
+          <div class="user-details">
+            <span class="user-name">User</span>
+            <span class="user-role">Member</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <section class="cards">
+    <!-- Stats Cards -->
+    <section class="stats-grid">
 
-      <div class="card card-green">
-        <div class="card-icon">
-          <i class="fas fa-rocket"></i> <!-- progress / achievement vibe ke liye -->
+      <div class="stat-card">
+        <div class="stat-icon" style="--stat-color: #0d6efd;">
+          <i class="fas fa-wand-magic-sparkles"></i>
         </div>
-        <div class="card-content">
-          <h3>Career Assistant</h3>
-          <p class="card-number" id="careerAssistanceCount">0</p>
-          <span class="card-trend up">
+        <div class="stat-body">
+          <span class="stat-label">Career Assistant</span>
+          <span class="stat-value" id="careerAssistanceCount">0</span>
+          <span class="stat-trend up">
             <i class="fas fa-arrow-up"></i> Resumes Polished
           </span>
         </div>
       </div>
 
-
-      <div class="card card-purple">
-        <div class="card-icon">
-          <i class="fas fa-file-alt"></i>
+      <div class="stat-card">
+        <div class="stat-icon" style="--stat-color: #0f9d58;">
+          <i class="fas fa-file-lines"></i>
         </div>
-        <div class="card-content">
-          <h3>Total Resumes</h3>
-          <p class="card-number" id="totalResumes"></p>
-          <span class="card-trend up">
-            <i class="fas fa-arrow-up"></i> AI Generated Resumes
+        <div class="stat-body">
+          <span class="stat-label">Total Resumes</span>
+          <span class="stat-value" id="totalResumes">—</span>
+          <span class="stat-trend up">
+            <i class="fas fa-arrow-up"></i> AI Generated
           </span>
         </div>
       </div>
 
-      <div class="card card-blue">
-        <div class="card-icon">
+      <div class="stat-card">
+        <div class="stat-icon" style="--stat-color: #f59e0b;">
           <i class="fas fa-paper-plane"></i>
         </div>
-        <div class="card-content">
-          <h3>Jobs Applied</h3>
-          <p class="card-number" id="jobsApplied"></p>
-          <span class="card-trend up">
-            <i class="fas fa-arrow-up"></i> Job applied (tracker)
+        <div class="stat-body">
+          <span class="stat-label">Jobs Applied</span>
+          <span class="stat-value" id="jobsApplied">—</span>
+          <span class="stat-trend up">
+            <i class="fas fa-arrow-up"></i> Active Applications
           </span>
         </div>
       </div>
 
-      <div class="card card-orange">
-        <div class="card-icon">
-          <i class="fas fa-chart-pie"></i>
+      <div class="stat-card">
+        <div class="stat-icon" style="--stat-color: #7c3aed;">
+          <i class="fas fa-circle-check"></i>
         </div>
-        <div class="card-content">
-          <h3>Profile Completeness</h3>
-          <p class="card-number" id="profileCompleteness"></p>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 0%; background-color: #ff9800; height: 5px; border-radius: 5px;">
+        <div class="stat-body">
+          <span class="stat-label">Profile Completeness</span>
+          <span class="stat-value" id="profileCompleteness">—</span>
+          <div class="stat-progress">
+            <div class="stat-progress-bar">
+              <div class="stat-progress-fill" id="profileProgressFill" style="width: 0%"></div>
             </div>
           </div>
-          <span class="card-trend down">
-            <i class="fas fa-arrow-down"></i> Complete your profile
+          <span class="stat-trend neutral">
+            Complete your profile
           </span>
         </div>
       </div>
 
     </section>
 
+    <!-- Dashboard Content Grid -->
     <section class="dashboard-grid">
 
-      <div class="analytics-section">
-        <div class="section-header">
-          <h2><i class="fas fa-chart-line"></i> Resume Analytics</h2>
+      <!-- Analytics -->
+      <div class="dashboard-card analytics-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2><i class="fas fa-chart-line"></i> Resume Analytics</h2>
+            <p>AI-based suggestions and resume improvement stats</p>
+          </div>
           <select class="time-filter">
             <option>Last 7 Days</option>
             <option>Last 30 Days</option>
             <option>Last 3 Months</option>
           </select>
         </div>
-        <p class="section-description">AI-based suggestions and resume improvement stats</p>
-        <div class="chart-container">
+
+        <div class="chart-wrapper">
           <canvas id="analyticsChart"></canvas>
         </div>
-        <div class="analytics-stats">
-          <div class="stat-item">
-            <span class="stat-label">ATS Score</span>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 75%"></div>
+
+        <div class="analytics-metrics">
+          <div class="metric-item">
+            <div class="metric-info">
+              <span class="metric-label">ATS Score</span>
+              <span class="metric-value">75/100</span>
             </div>
-            <span class="stat-value">75/100</span>
+            <div class="metric-bar">
+              <div class="metric-fill" style="width: 75%"></div>
+            </div>
           </div>
-          <div class="stat-item">
-            <span class="stat-label">Keyword Match</span>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 82%"></div>
+          <div class="metric-item">
+            <div class="metric-info">
+              <span class="metric-label">Keyword Match</span>
+              <span class="metric-value">82%</span>
             </div>
-            <span class="stat-value">82%</span>
+            <div class="metric-bar">
+              <div class="metric-fill" style="width: 82%"></div>
+            </div>
           </div>
-          <div class="stat-item">
-            <span class="stat-label">Format Quality</span>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 90%"></div>
+          <div class="metric-item">
+            <div class="metric-info">
+              <span class="metric-label">Format Quality</span>
+              <span class="metric-value">90%</span>
             </div>
-            <span class="stat-value">90%</span>
+            <div class="metric-bar">
+              <div class="metric-fill" style="width: 90%"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="activity-section">
-        <div class="section-header">
-          <h2><i class="fas fa-history"></i> Recent Activity</h2>
-          <a href="#" class="view-all">View All</a>
+      <!-- Recent Activity -->
+      <div class="dashboard-card activity-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2><i class="fas fa-history"></i> Recent Activity</h2>
+          </div>
+          <a href="#" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="activity-list">
-
           <div class="activity-item">
-            <div class="activity-icon purple">
-              <i class="fas fa-file-upload"></i>
-            </div>
-            <div class="activity-details">
-              <p class="activity-title" id="resume-upload-text">Resume Uploaded</p>
-              <p class="activity-time" id="resume-upload-time">—</p>
+            <div class="activity-dot" style="--dot-color: #0d6efd;"></div>
+            <div class="activity-body">
+              <div class="activity-top">
+                <span class="activity-title" id="resume-upload-text">Resume Uploaded</span>
+                <span class="activity-time" id="resume-upload-time">—</span>
+              </div>
+              <p class="activity-desc">Your resume was uploaded and analyzed</p>
             </div>
           </div>
 
           <div class="activity-item">
-            <div class="activity-icon blue">
-              <i class="fas fa-paper-plane"></i>
-            </div>
-            <div class="activity-details">
-              <p class="activity-title" id="last-job-title">Applied to —</p>
-              <p class="activity-time" id="last-job-time">—</p>
-            </div>
-          </div>
-
-          <div class="activity-item">
-            <div class="activity-icon green">
-              <i class="fas fa-user-check"></i>
-            </div>
-            <div class="activity-details">
-              <p class="activity-title" id="last-login-text">Last Login</p>
-              <p class="activity-time" id="last-login-time">—</p>
+            <div class="activity-dot" style="--dot-color: #0f9d58;"></div>
+            <div class="activity-body">
+              <div class="activity-top">
+                <span class="activity-title" id="last-job-title">Applied to —</span>
+                <span class="activity-time" id="last-job-time">—</span>
+              </div>
+              <p class="activity-desc">Job application submitted successfully</p>
             </div>
           </div>
 
           <div class="activity-item">
-            <div class="activity-icon orange">
-              <i class="fas fa-edit"></i>
-            </div>
-            <div class="activity-details">
-              <p class="activity-title">Profile Updated</p>
-              <p class="activity-time">Recently</p>
+            <div class="activity-dot" style="--dot-color: #7c3aed;"></div>
+            <div class="activity-body">
+              <div class="activity-top">
+                <span class="activity-title" id="last-login-text">Last Login</span>
+                <span class="activity-time" id="last-login-time">—</span>
+              </div>
+              <p class="activity-desc">You logged into your account</p>
             </div>
           </div>
 
           <div class="activity-item">
-            <div class="activity-icon pink">
-              <i class="fas fa-lightbulb"></i>
-            </div>
-            <div class="activity-details">
-              <p class="activity-title">AI Suggestions Generated</p>
-              <p class="activity-time">Always Active</p>
+            <div class="activity-dot" style="--dot-color: #f59e0b;"></div>
+            <div class="activity-body">
+              <div class="activity-top">
+                <span class="activity-title">Profile Updated</span>
+                <span class="activity-time">Recently</span>
+              </div>
+              <p class="activity-desc">Your profile information was updated</p>
             </div>
           </div>
 
+          <div class="activity-item">
+            <div class="activity-dot" style="--dot-color: #0891b2;"></div>
+            <div class="activity-body">
+              <div class="activity-top">
+                <span class="activity-title">AI Suggestions Generated</span>
+                <span class="activity-time">Always Active</span>
+              </div>
+              <p class="activity-desc">AI recommendations ready for review</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="recommendations-section">
-        <div class="section-header">
-          <h2><i class="fas fa-lightbulb"></i> AI Recommendations</h2>
+      <!-- AI Recommendations -->
+      <div class="dashboard-card recommendations-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2><i class="fas fa-lightbulb"></i> AI Recommendations</h2>
+          </div>
         </div>
-        <div class="recommendation-cards">
-          <div class="recommendation-card">
-            <i class="fas fa-exclamation-circle"></i>
-            <h3>Improve Skills Section</h3>
-            <p>Add 5 more technical skills to increase ATS score by 15%</p>
-            <button class="btn-action">Fix Now</button>
+
+        <div class="recommendation-list">
+          <div class="rec-card">
+            <div class="rec-icon" style="--rec-color: #0d6efd;">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="rec-body">
+              <h3>Improve Skills Section</h3>
+              <p>Add 5 more technical skills to increase ATS score by 15%</p>
+              <button class="rec-btn">Fix Now</button>
+            </div>
           </div>
-          <div class="recommendation-card">
-            <i class="fas fa-info-circle"></i>
-            <h3>Update Work Experience</h3>
-            <p>Use action verbs to make your experience more impactful</p>
-            <button class="btn-action">Learn More</button>
+
+          <div class="rec-card">
+            <div class="rec-icon" style="--rec-color: #7c3aed;">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="rec-body">
+              <h3>Update Work Experience</h3>
+              <p>Use action verbs to make your experience more impactful</p>
+              <button class="rec-btn">Learn More</button>
+            </div>
           </div>
-          <div class="recommendation-card">
-            <i class="fas fa-check-circle"></i>
-            <h3>Optimize Keywords</h3>
-            <p>Match 3 more keywords from target job descriptions</p>
-            <button class="btn-action">Optimize</button>
+
+          <div class="rec-card">
+            <div class="rec-icon" style="--rec-color: #0f9d58;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="rec-body">
+              <h3>Optimize Keywords</h3>
+              <p>Match 3 more keywords from target job descriptions</p>
+              <button class="rec-btn">Optimize</button>
+            </div>
           </div>
         </div>
       </div>
 
     </section>
 
-  </div>
-
-
-
-  <div id="welcomePopup">
-    <h1>🎉 Welcome <span id="userName"></span> 🎊</h1>
-    <p>Welcome to <strong>CareerBoost</strong> 🚀</p>
-  </div>
-
-  <canvas id="confettiCanvas"></canvas>
-
+  </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <script src="js/dashboard.js"></script>

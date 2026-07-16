@@ -8,8 +8,8 @@
 body {
   min-height: 100vh;
   display: flex;
-  background: linear-gradient(135deg, #fbe1c5 0%, #f5d3b8 100%);
-  color: #333;
+  background: linear-gradient(135deg, var(--ink-50) 0%, var(--ink-100) 100%);
+  color: var(--ink-800);
   position: relative;
   overflow-x: hidden;
 }
@@ -28,7 +28,7 @@ body {
 .bg-shapes span {
   position: absolute;
   display: block;
-  background: rgba(127, 38, 91, 0.08);
+  background: rgba(13, 110, 253, 0.08);
   border-radius: 50%;
   animation: float 25s infinite ease-in-out;
 }
@@ -102,8 +102,8 @@ body {
 
  .sidebar {
   width: 260px;
-  background: linear-gradient(180deg, #7f265b 0%, #5f1d45 100%);
-  color: #fff;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -115,96 +115,61 @@ body {
 
 .sidebar .logo {
   text-align: center;
-  margin-bottom: 40px;
-  padding: 0 20px;
+  padding: 12px 20px 8px;
 }
 
 .sidebar .logo img {
-  width: 70px;
+  width: 50px;
   height: auto;
-  margin-bottom: 12px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  animation: logoFloat 3s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-  0%, 100% { 
-    transform: translateY(0); 
-  }
-  50% { 
-    transform: translateY(-8px); 
-  }
-}
-
-.sidebar .logo h2 {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
 .sidebar ul.menu {
   list-style: none;
-  padding: 0 15px;
+  padding: 0 12px;
   flex: 1;
 }
 
 .sidebar ul.menu li {
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .sidebar ul.menu li a {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 14px 18px;
-  border-radius: 12px;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
   transition: all 0.3s ease;
-  font-size: 15px;
-  position: relative;
-  overflow: hidden;
-}
-
-.sidebar ul.menu li a::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background: #6b73ff;
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .sidebar ul.menu li a i {
   font-size: 18px;
-  width: 20px;
+  width: 22px;
   text-align: center;
 }
 
 .sidebar ul.menu li a:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding-left: 22px;
-}
-
-.sidebar ul.menu li a:hover::before {
-  transform: scaleY(1);
+  color: #ffffff;
 }
 
 .sidebar ul.menu li.active a {
-  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(107, 115, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.sidebar ul.menu li.logout {
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
+  .sidebar ul.menu li.logout {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
  .main-content {
   flex: 1;
@@ -221,21 +186,22 @@ body {
   margin-bottom: 35px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
-  padding: 20px 30px;
+  padding: 40px 55px;
+  min-height: 100px;
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .header-left h1 {
-  font-size: 32px;
+  font-size: 42px;
   font-weight: 700;
-  color: #7f265b;
+  color: var(--primary);
   margin-bottom: 5px;
 }
 
 .header-left .subtitle {
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
   font-weight: 400;
 }
 
@@ -248,7 +214,7 @@ body {
 .search-box {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--white);
   padding: 10px 18px;
   border-radius: 25px;
   gap: 10px;
@@ -262,7 +228,7 @@ body {
 }
 
 .search-box i {
-  color: #999;
+  color: var(--ink-500);
   font-size: 14px;
 }
 
@@ -281,7 +247,7 @@ body {
   cursor: pointer;
   padding: 8px 15px;
   border-radius: 25px;
-  background: #fff;
+  background: var(--white);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -300,19 +266,19 @@ body {
 .user-name {
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: var(--ink-800);
 }
 
 .user-role {
   font-size: 12px;
-  color: #999;
+  color: var(--ink-500);
 }
 
 .user-info img {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 2px solid #7f265b;
+  border: 2px solid var(--primary);
 }
 
  
@@ -332,7 +298,7 @@ body {
 }
 
  .modal-content {
-  background: #fff;
+  background: var(--white);
   width: 100%;
   max-width: 520px;
   border-radius: 18px;
@@ -356,8 +322,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 22px 26px;
-  background: linear-gradient(135deg, #7f265b, #a03273);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
 }
 
 .modal-header h2 {
@@ -371,7 +337,7 @@ body {
 .close-btn {
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--white);
   font-size: 26px;
   cursor: pointer;
   width: 36px;
@@ -399,7 +365,7 @@ body {
 .form-group label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--ink-800);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -412,7 +378,7 @@ body {
   padding: 12px 14px;
   font-size: 14px;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   outline: none;
   transition: 0.2s;
   font-family: inherit;
@@ -425,8 +391,8 @@ body {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #7f265b;
-  box-shadow: 0 0 0 2px rgba(127,38,91,0.15);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(13,148,136,0.15);
 }
 
  .modal-actions {
@@ -437,8 +403,8 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #7f265b, #a03273);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
   border: none;
   padding: 10px 18px;
   border-radius: 10px;

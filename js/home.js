@@ -10,12 +10,25 @@ window.addEventListener("scroll", () => {
 })
 
 // Mobile menu toggle
-const mobileToggle = document.getElementById("mobileToggle")
+const mobileToggle = document.getElementById("mobileMenuToggle")
 const navLinks = document.getElementById("navLinks")
+const sidebarOverlay = document.getElementById("sidebarOverlay")
 
 mobileToggle.addEventListener("click", () => {
   mobileToggle.classList.toggle("active")
   navLinks.classList.toggle("active")
+  sidebarOverlay.classList.toggle("active")
+  mobileToggle.setAttribute("aria-expanded", mobileToggle.classList.contains("active"))
+  sidebarOverlay.setAttribute("aria-hidden", !sidebarOverlay.classList.contains("active"))
+})
+
+// Close mobile menu when clicking overlay
+sidebarOverlay.addEventListener("click", () => {
+  mobileToggle.classList.remove("active")
+  navLinks.classList.remove("active")
+  sidebarOverlay.classList.remove("active")
+  mobileToggle.setAttribute("aria-expanded", "false")
+  sidebarOverlay.setAttribute("aria-hidden", "true")
 })
 
 // Close mobile menu when clicking a link
@@ -23,6 +36,9 @@ navLinks.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => {
     mobileToggle.classList.remove("active")
     navLinks.classList.remove("active")
+    sidebarOverlay.classList.remove("active")
+    mobileToggle.setAttribute("aria-expanded", "false")
+    sidebarOverlay.setAttribute("aria-hidden", "true")
   })
 })
 

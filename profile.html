@@ -4,96 +4,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile - AI Resume Tracker</title>
+  <title>Profile - NextHire</title>
   <link rel="stylesheet" href="css/profile.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
-  <div class="bg-shapes">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-   <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>AI Resume Tracker</h2>
-    </div>
-    <ul class="menu">
-      <li>
-        <a href="dashboard.html">
-          <i class="fas fa-th-large"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li> 
-         <a href="career.html">
-          <i class="fas fa-file-alt"></i>
-          <span>career Assistant</span>
-        </a>
-      </li>
-      <li>
-        <a href="resume.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Resume Analyzer</span>
-        </a>
-      </li>
-      <li>
-        <a href="jobs.html">
-          <i class="fas fa-briefcase"></i>
-          <span>Jobs Tracker</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="profile.html">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li class="logout">
-        <a href="home.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="main-content">
-
-     <header>
-      <div class="header-left">
-        <h1>Profile</h1>
-        <p class="subtitle">Manage your professional information</p>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="dashboard.html">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="career.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Career Assistant</span>
+          </a>
+        </li>
+        <li>
+          <a href="resume.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume Analyzer</span>
+          </a>
+        </li>
+        <li>
+          <a href="jobs.html">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs Tracker</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="home.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <div class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1>Profile</h1>
+          <p>Manage your professional information</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
         </div>
-        <div class="notifications">
+        <button class="notifications-btn">
           <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-info">
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
+          <img id="userAvatar" alt="User Avatar"
+            onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff'">
           <div class="user-details">
-            <span class="user-name" id="headerUserName">John Doe</span>
+            <span class="user-name">User</span>
+            <span class="user-role">Member</span>
           </div>
-          <img id="headerAvatar" alt="User Avatar"
-            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
         </div>
       </div>
     </header>
@@ -123,7 +141,7 @@
          <div class="profile-info-overlay">
           <div class="profile-avatar">
             <img id="profileAvatar" alt="Profile Picture"
-              onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff&size=150'">
+              onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff&size=150'">
             <button class="btn-change-avatar" id="btnChangeAvatar">
               <i class="fas fa-camera"></i>
             </button>
@@ -234,9 +252,7 @@
 
     </div>
 
-  </div>
-
-   <div id="editModal" class="modal">
+  <div id="editModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="modalTitle">Edit Section</h3>
@@ -261,8 +277,6 @@
   <span id="closePreview" class="close-preview">&times;</span>
   <img id="previewImage" src="" alt="Preview">
 </div>
-
-
   <script src="js/profile.js"></script>
 
 </body>

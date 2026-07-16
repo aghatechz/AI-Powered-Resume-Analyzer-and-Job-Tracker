@@ -4,119 +4,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings - AI Resume Tracker</title>
-  <link rel="stylesheet" href="css/dashboard.css">
+  <title>Settings - NextHire</title>
   <link rel="stylesheet" href="css/settings.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
-  <div class="bg-shapes">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
   <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="logo">
-      <img src="assets/Group 1686550876.png" alt="Logo">
-      <h2>AI Resume Tracker</h2>
-    </div>
-    <ul class="menu">
-      <li>
-        <a href="dashboard.html">
-          <i class="fas fa-th-large"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a href="career.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Career Assistant</span>
-        </a>
-      </li>
-      <li>
-        <a href="resume.html">
-          <i class="fas fa-file-alt"></i>
-          <span>Resume Analyzer</span>
-        </a>
-      </li>
-      <li>
-        <a href="jobs.html">
-          <i class="fas fa-briefcase"></i>
-          <span>Jobs Tracker</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-      <li class="logout">
-        <a href="home.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <header>
-      <div class="header-left">
-        <h1>Settings</h1>
-        <p class="subtitle">Customize your AI preferences and account options</p>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-briefcase"></i>
       </div>
-      <div class="header-right">
+      <div class="brand-text">
+        <span class="brand-name">NextHire</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="dashboard.html">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="career.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Career Assistant</span>
+          </a>
+        </li>
+        <li>
+          <a href="resume.html">
+            <i class="fas fa-file-alt"></i>
+            <span>Resume Analyzer</span>
+          </a>
+        </li>
+        <li>
+          <a href="jobs.html">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs Tracker</span>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="home.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle sidebar" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="page-title">
+          <h1>Settings</h1>
+          <p>Manage your account preferences</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search...">
+          <kbd>⌘K</kbd>
         </div>
-        <div class="notifications">
+        <button class="notifications-btn">
           <i class="fas fa-bell"></i>
-        </div>
-        <div class="user-info">
-          <div class="user-details">
-            <span class="user-name">John Doe</span>
-            <span class="user-role">User</span>
-          </div>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="user-profile">
           <img id="userAvatar" alt="User Avatar"
-            onerror="this.src='https://ui-avatars.com/api/?name=John+Doe&background=7f265b&color=fff'">
+            onerror="this.src='https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff'">
+          <div class="user-details">
+            <span class="user-name">User</span>
+            <span class="user-role">Member</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Settings Form -->
     <form id="settingsForm" onsubmit="saveUserSettings(event)">
       <div class="settings-grid">
-        
-        <!-- AI Settings -->
         <div class="settings-card">
           <div class="settings-card-header">
             <i class="fas fa-brain"></i>
             <h2>AI Settings</h2>
           </div>
-          
           <div class="settings-group">
             <label for="defaultTargetRole">Default Target Role</label>
             <input type="text" id="defaultTargetRole" placeholder="e.g., Software Engineer">
           </div>
-
           <div class="settings-group">
             <label for="aiModel">AI Model</label>
             <select id="aiModel">
@@ -125,77 +136,67 @@
               <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
             </select>
           </div>
-
           <div class="settings-group slider-group">
             <div class="slider-header">
               <span>AI Temperature (Creativity)</span>
               <span id="tempValue" class="slider-val">0.2</span>
             </div>
-            <input type="range" id="aiTemperature" class="custom-range" min="0" max="1" step="0.1" value="0.2" oninput="document.getElementById('tempValue').innerText = this.value">
+            <input type="range" id="aiTemperature" class="custom-range" min="0" max="1" step="0.1" value="0.2"
+              oninput="document.getElementById('tempValue').innerText = this.value">
           </div>
-
           <div class="settings-group slider-group">
             <div class="slider-header">
               <span>Target ATS Score Goal</span>
               <span id="scoreValue" class="slider-val">85%</span>
             </div>
-            <input type="range" id="atsScoreGoal" class="custom-range" min="50" max="100" step="5" value="85" oninput="document.getElementById('scoreValue').innerText = this.value + '%'">
+            <input type="range" id="atsScoreGoal" class="custom-range" min="50" max="100" step="5" value="85"
+              oninput="document.getElementById('scoreValue').innerText = this.value + '%'">
           </div>
         </div>
 
-        <!-- Account Security -->
         <div class="settings-card">
           <div class="settings-card-header">
             <i class="fas fa-shield-alt"></i>
             <h2>Account Security</h2>
           </div>
-
           <div class="settings-group">
             <label for="currentPassword">Current Password</label>
             <input type="password" id="currentPassword" placeholder="Enter current password">
           </div>
-
           <div class="settings-group">
             <label for="newPassword">New Password</label>
             <input type="password" id="newPassword" placeholder="Enter new password">
           </div>
-
           <div class="settings-group">
             <label for="confirmPassword">Confirm New Password</label>
             <input type="password" id="confirmPassword" placeholder="Confirm new password">
           </div>
         </div>
 
-        <!-- Integrations & Links -->
         <div class="settings-card">
           <div class="settings-card-header">
             <i class="fas fa-link"></i>
             <h2>Profile Connections</h2>
           </div>
-
           <div class="settings-group">
             <label for="githubLink">GitHub Profile</label>
             <input type="text" id="githubLink" placeholder="https://github.com/username">
           </div>
-
           <div class="settings-group">
             <label for="linkedinLink">LinkedIn Profile</label>
             <input type="text" id="linkedinLink" placeholder="https://linkedin.com/in/username">
           </div>
-
           <div class="settings-group">
             <label for="websiteLink">Personal Portfolio</label>
             <input type="text" id="websiteLink" placeholder="https://yourwebsite.com">
           </div>
         </div>
 
-        <!-- Notifications -->
         <div class="settings-card">
           <div class="settings-card-header">
             <i class="fas fa-bell"></i>
             <h2>Notifications</h2>
           </div>
-
           <div class="toggle-item">
             <div class="toggle-details">
               <h3>Email Notifications</h3>
@@ -206,7 +207,6 @@
               <span class="switch-slider"></span>
             </label>
           </div>
-
           <div class="toggle-item">
             <div class="toggle-details">
               <h3>Job Deadline Alerts</h3>
@@ -219,20 +219,18 @@
           </div>
         </div>
 
-        <!-- Save button -->
         <div class="settings-actions">
           <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
           <button type="submit" class="btn btn-primary">Save Settings</button>
         </div>
-
       </div>
     </form>
-  </div>
 
-  <!-- Notification Toast -->
+  </main>
+
   <div id="notification-toast"></div>
-
   <script src="js/settings.js"></script>
+
 </body>
 
 </html>

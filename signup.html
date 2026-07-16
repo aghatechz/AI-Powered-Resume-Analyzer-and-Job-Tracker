@@ -6,9 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup - AI Resume Tracker</title>
   <link rel="stylesheet" href="css/signup.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" ></script>
-
 </head>
 
 <body>
@@ -25,41 +28,101 @@
 
     <div class="auth-wrapper">
 
-      <div class="auth-image">
-        <img src="assets/illustration.png" alt="Signup Image">
+      <div class="auth-brand">
+        <div class="auth-brand-content">
+          <div class="auth-brand-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h1 class="auth-brand-name">NextHire</h1>
+          <p class="auth-brand-tagline">AI-Powered Resume &amp; Job Tracker</p>
+          
+          <p class="auth-brand-desc">
+            Transform your job search with intelligent resume analysis,
+            smart application tracking, and personalized career guidance —
+            all powered by cutting-edge AI.
+          </p>
+
+          <div class="auth-stats">
+            <div class="auth-stat">
+              <span class="auth-stat-number">10K+</span>
+              <span class="auth-stat-label">Active Users</span>
+            </div>
+            <div class="auth-stat-divider"></div>
+            <div class="auth-stat">
+              <span class="auth-stat-number">50K+</span>
+              <span class="auth-stat-label">Resumes Analyzed</span>
+            </div>
+            <div class="auth-stat-divider"></div>
+            <div class="auth-stat">
+              <span class="auth-stat-number">95%</span>
+              <span class="auth-stat-label">Success Rate</span>
+            </div>
+          </div>
+
+          <div class="auth-features">
+            <div class="auth-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>AI Resume Analysis</span>
+            </div>
+            <div class="auth-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Smart Job Tracking</span>
+            </div>
+            <div class="auth-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Career Assistant</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="auth-card">
 
-        <div class="logo" style="text-align:center; margin-bottom:15px;">
-          <img src="assets/Group 1686550876.png" alt="Logo" style="width:80px; height:auto;">
+        <div class="auth-logo">
+          <div class="auth-logo-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <span class="auth-logo-text">NextHire</span>
         </div>
 
-        <h2>Create Account</h2>
+        <div class="auth-header">
+          <h2 class="auth-greeting">Create Account</h2>
+          <p class="auth-subtitle">Join thousands landing their dream jobs with AI</p>
+          <div class="auth-benefits">
+            <span><i class="fas fa-bolt"></i> Free AI Analysis</span>
+            <span><i class="fas fa-robot"></i> Smart Suggestions</span>
+            <span><i class="fas fa-chart-line"></i> Track Progress</span>
+          </div>
+        </div>
 
-        <p style="text-align:center; color:#555; margin-bottom:20px; font-size:14px;">
-          See what is going on with your business
-        </p>
-
-        <form id="signupForm">
-          <input type="text" id="name" placeholder="Full Name" required>
-          <input type="email" id="email" placeholder="Email" required>
-          <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
-          <button type="submit" class="btn">Sign Up</button>
+        <form id="signupForm" class="auth-form-animate">
+          <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Create a password" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary">Create Account</button>
           <div id="signupMsg"></div>
         </form>
 
-        <div style="text-align:center; margin-top:20px; font-size:14px; color:#555;">
-          
-          <p>or continue with</p>
-          
-           <div id="googleLoginBtn">Sign Up with googel</div>
-
-
+        <div class="divider">
+          <span>or continue with</span>
         </div>
 
-        <p class="switch-page" style="margin-top:15px;">
-          Already have an account? <a href="index.html">Login</a>
+        <div id="googleLoginBtn" class="google-btn">
+          <i class="fab fa-google"></i>
+          <span>Sign up with Google</span>
+        </div>
+
+        <p class="switch-page">
+          Already have an account? <a href="index.html">Sign in</a>
         </p>
 
       </div>

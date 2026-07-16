@@ -9,18 +9,17 @@
     content="NextHire - AI-powered resume analyzer & job tracker helping professionals land their dream jobs.">
   <meta name="keywords" content="Resume Analyzer, Job Tracker, AI, Career, Job Applications, NextHire">
   <meta name="author" content="NextHire">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/theme.css">
 </head>
 
 <body>
-  <!-- Top Notification Bar -->
-
-
   <!-- Animated Background -->
   <div class="bg-shapes">
     <span></span>
@@ -80,16 +79,16 @@
         <span class="brand-by">by Urooj</span>
       </div>
 
-      <div class="mobile-toggle" id="mobileToggle">
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
 
       <ul class="nav-links" id="navLinks">
         <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#jobs">Jobs</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -107,138 +106,268 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- Hero Section - ATS Resume Checker -->
   <section class="hero" id="home">
     <div class="hero-container reveal">
       <div class="hero-content">
         <div class="hero-text reveal-left">
           <span class="hero-badge">
-            <i class="fas fa-star"></i>
-            <span>#1 AI Resume Analyzer</span>
+            <i class="fas fa-shield-halved"></i>
+            <span>Free ATS Resume Checker</span>
           </span>
           <h1 class="animate-text">
-            Track Your Jobs &
-            <span class="gradient-text">Boost Your Career</span>
+            See If Your Resume Passes the
+            <span class="gradient-text">ATS Scan</span>
           </h1>
           <p class="animate-text">
-            AI-powered Resume Analyzer & Job Tracker that helps you land your dream job faster.
-            Get instant feedback, optimize for ATS, and track applications all in one place.
+            Most companies use Applicant Tracking Systems (ATS) to filter resumes before a recruiter ever sees them.
+            Find out if yours makes the cut — get a detailed ATS score, keyword analysis, and actionable fixes in seconds.
           </p>
 
           <div class="hero-buttons">
             <a href="signup.html" class="btn btn-primary">
-              <span>Get Started</span>
+              <span>Check My Resume For Free</span>
               <i class="fas fa-arrow-right"></i>
             </a>
-            <a href="#features" class="btn btn-secondary">
+            <a href="#how-it-works" class="btn btn-secondary">
               <i class="fas fa-play-circle"></i>
-              <span>Watch Demo</span>
+              <span>See How It Works</span>
             </a>
           </div>
 
           <div class="hero-stats">
             <div class="stat">
-              <h3>10K+</h3>
-              <p>Active Users</p>
+              <h3>30+</h3>
+              <p>Scanning Criteria</p>
             </div>
             <div class="stat">
               <h3>50K+</h3>
               <p>Resumes Analyzed</p>
             </div>
             <div class="stat">
-              <h3>95%</h3>
-              <p>Success Rate</p>
+              <h3>4.8★</h3>
+              <p>User Rating</p>
             </div>
           </div>
         </div>
 
         <div class="hero-image reveal-right">
-          <div class="image-wrapper">
-            <img src="assets/dv.png" alt="AI Resume Analysis Dashboard"
-              onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80'">
-            <div class="floating-card card-1">
-              <i class="fas fa-check-circle"></i>
-              <span>ATS Optimized</span>
+          <div class="ats-checker-card">
+            <div class="checker-header">
+              <i class="fas fa-file-lines"></i>
+              <span>ATS Resume Checker</span>
             </div>
-            <div class="floating-card card-2">
-              <i class="fas fa-star"></i>
-              <span>95% Match Rate</span>
+            <div class="upload-zone">
+              <div class="upload-icon">
+                <i class="fas fa-cloud-arrow-up"></i>
+              </div>
+              <h4>Drop your resume here</h4>
+              <p>or click to browse — PDF or DOCX supported</p>
+              <a href="signup.html" class="btn btn-upload">
+                <i class="fas fa-upload"></i>
+                <span>Upload Resume</span>
+              </a>
             </div>
-            <div class="floating-card card-3">
-              <i class="fas fa-rocket"></i>
-              <span>Fast Results</span>
+            <div class="checker-score">
+              <div class="score-preview">
+                <div class="score-ring">
+                  <svg viewBox="0 0 120 120" class="score-svg">
+                    <circle cx="60" cy="60" r="52" class="score-track"/>
+                    <circle cx="60" cy="60" r="52" class="score-fill" style="stroke-dasharray: 326.7; stroke-dashoffset: 98;"/>
+                  </svg>
+                  <div class="score-value">
+                    <span class="score-num">70</span>
+                    <span class="score-label">ATS Score</span>
+                  </div>
+                </div>
+                <div class="score-details">
+                  <div class="score-item pass">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Format: <strong>Pass</strong></span>
+                  </div>
+                  <div class="score-item pass">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Structure: <strong>Pass</strong></span>
+                  </div>
+                  <div class="score-item fail">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Keywords: <strong>Needs Work</strong></span>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="checker-footer">
+              <span>✓ Scanned against 30+ ATS criteria</span>
+              <span class="checker-tag">Free</span>
+            </div>
+          </div>
+
+          <div class="floating-card card-1">
+            <i class="fas fa-check-circle"></i>
+            <span>ATS Optimized</span>
+          </div>
+          <div class="floating-card card-2">
+            <i class="fas fa-star"></i>
+            <span>95% Match Rate</span>
+          </div>
+          <div class="floating-card card-3">
+            <i class="fas fa-rocket"></i>
+            <span>Fast Results</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Job Tracking Section -->
-  <section class="hero-alt">
-    <div class="hero-container reveal">
-      <div class="hero-content reverse">
-        <div class="hero-image reveal-left">
-          <div class="image-wrapper">
-            <img src="assets/Screenshot 2025-12-05 045538.png" alt="Job Tracking Dashboard"
-              onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80'">
-            <div class="dashboard-preview">
-              <div class="preview-card">
-                <i class="fas fa-briefcase"></i>
-                <div>
-                  <h4>35</h4>
-                  <p>Jobs Applied</p>
-                </div>
-              </div>
-              <div class="preview-card">
-                <i class="fas fa-phone"></i>
-                <div>
-                  <h4>12</h4>
-                  <p>Interviews</p>
-                </div>
-              </div>
+  <!-- How It Works Section -->
+  <section class="steps-section" id="how-it-works">
+    <div class="steps-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Simple Process</span>
+        <h2>How It <span class="gradient-text">Works</span></h2>
+        <p>Get your resume ATS-ready in 4 simple steps</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal" style="transition-delay: 0.1s;">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <i class="fas fa-cloud-arrow-up"></i>
+          </div>
+          <h3>Upload Resume</h3>
+          <p>Drag & drop your PDF or DOCX resume. No account required to get started.</p>
+        </div>
+
+        <div class="step-connector">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.2s;">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h3>AI Scan & Analysis</h3>
+          <p>Our AI scans for formatting, keywords, structure, and ATS compatibility across 30+ criteria.</p>
+        </div>
+
+        <div class="step-connector">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.3s;">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <i class="fas fa-chart-simple"></i>
+          </div>
+          <h3>Get Your Score</h3>
+          <p>Receive a detailed ATS score with breakdowns for formatting, keywords, and content quality.</p>
+        </div>
+
+        <div class="step-connector">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.4s;">
+          <div class="step-number">4</div>
+          <div class="step-icon">
+            <i class="fas fa-wand-magic-sparkles"></i>
+          </div>
+          <h3>Optimize & Improve</h3>
+          <p>Get AI-powered suggestions to fix weak spots, add keywords, and boost your ATS score.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATS Score Preview Section -->
+  <section class="ats-preview-section" id="score-preview">
+    <div class="ats-preview-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Real Results</span>
+        <h2>What Your <span class="gradient-text">ATS Report</span> Looks Like</h2>
+        <p>Get a clear breakdown of how your resume performs against ATS requirements</p>
+      </div>
+
+      <div class="score-dashboard reveal">
+        <div class="overall-score">
+          <div class="big-score-ring">
+            <svg viewBox="0 0 180 180" class="big-score-svg">
+              <circle cx="90" cy="90" r="78" class="score-track"/>
+              <circle cx="90" cy="90" r="78" class="score-fill" style="stroke-dasharray: 490; stroke-dashoffset: 64;"/>
+            </svg>
+            <div class="big-score-value">
+              <span class="big-score-num">87</span>
+              <span class="big-score-label">/100</span>
+              <span class="big-score-text">ATS Score</span>
             </div>
+          </div>
+          <div class="score-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>Great — you're on the right track!</span>
           </div>
         </div>
 
-        <div class="hero-text reveal-right">
-          <span class="hero-badge">
-            <i class="fas fa-chart-line"></i>
-            <span>Smart Tracking</span>
-          </span>
-          <h2>
-            Never Lose Track of Your
-            <span class="gradient-text">Job Applications</span>
-          </h2>
-          <p>
-            Organize all your job applications in one intuitive dashboard. Track application status,
-            set reminders, add notes, and get AI-powered insights to improve your success rate.
-          </p>
+        <div class="criteria-grid">
+          <div class="criteria-card">
+            <div class="criteria-header">
+              <span class="criteria-label">Format & Layout</span>
+              <span class="criteria-score pass">92</span>
+            </div>
+            <div class="criteria-bar">
+              <div class="criteria-fill" style="width: 92%"></div>
+            </div>
+            <p>Clean, standard format recognized by all major ATS systems</p>
+          </div>
 
-          <ul class="feature-list">
-            <li>
-              <i class="fas fa-check"></i>
-              <span>Real-time application tracking</span>
-            </li>
-            <li>
-              <i class="fas fa-check"></i>
-              <span>Automated reminders & notifications</span>
-            </li>
-            <li>
-              <i class="fas fa-check"></i>
-              <span>Interview preparation resources</span>
-            </li>
-            <li>
-              <i class="fas fa-check"></i>
-              <span>Success analytics & insights</span>
-            </li>
-          </ul>
+          <div class="criteria-card">
+            <div class="criteria-header">
+              <span class="criteria-label">Keyword Optimization</span>
+              <span class="criteria-score warn">65</span>
+            </div>
+            <div class="criteria-bar">
+              <div class="criteria-fill" style="width: 65%"></div>
+            </div>
+            <p>Add 5 more role-specific keywords to improve visibility</p>
+          </div>
 
-          <a href="#" class="btn btn-primary">
-            <span>View Dashboard</span>
-            <i class="fas fa-arrow-right"></i>
-          </a>
+          <div class="criteria-card">
+            <div class="criteria-header">
+              <span class="criteria-label">Content Quality</span>
+              <span class="criteria-score pass">88</span>
+            </div>
+            <div class="criteria-bar">
+              <div class="criteria-fill" style="width: 88%"></div>
+            </div>
+            <p>Strong action verbs and quantifiable achievements</p>
+          </div>
+
+          <div class="criteria-card">
+            <div class="criteria-header">
+              <span class="criteria-label">Section Structure</span>
+              <span class="criteria-score pass">90</span>
+            </div>
+            <div class="criteria-bar">
+              <div class="criteria-fill" style="width: 90%"></div>
+            </div>
+            <p>Well-organized sections with proper heading hierarchy</p>
+          </div>
         </div>
+      </div>
+
+      <div class="cta-inline reveal">
+        <a href="signup.html" class="btn btn-primary">
+          <span>Check Your Resume Now</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <p>Free analysis — no credit card required</p>
       </div>
     </div>
   </section>
@@ -439,11 +568,11 @@
   <!-- CTA Section -->
   <section class="cta-section">
     <div class="cta-content">
-      <h2>Ready to Transform Your Job Search?</h2>
-      <p>Join thousands of professionals who've already landed their dream jobs</p>
+      <h2>Ready to Check Your ATS Score?</h2>
+      <p>Join thousands of professionals who've already optimized their resumes and landed dream jobs</p>
       <div class="cta-buttons">
         <a href="signup.html" class="btn btn-white">
-          <span>Get Started Free</span>
+          <span>Check Your Resume Free</span>
           <i class="fas fa-arrow-right"></i>
         </a>
         <a href="#contact" class="btn btn-outline">

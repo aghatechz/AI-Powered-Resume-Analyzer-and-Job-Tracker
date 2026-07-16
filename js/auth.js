@@ -57,17 +57,17 @@ if (loginForm) {
             const { data } = await api.post("/login", { email, password });
             saveUser(data);
             showMsg(msgDiv, "Login successful! Redirecting...", "green");
-            const redirectUser = (role) => {
-                if (role === "super-admin") {
-                    window.location.href = "superadmin-dashboard.html";
-                } else if (role === "admin") {
-                    window.location.href = "admin-dashboard.html";
-                } else {
-                    window.location.href = "dashboard.html";
-                }
-            };
-
-            redirectUser(data.role);
+            // const redirectUser = (role) => {
+            //     if (role === "super-admin") {
+            //         window.location.href = "superadmin-dashboard.html";
+            //     } else if (role === "admin") {
+            //         window.location.href = "admin-dashboard.html";
+            //     } else {
+            //         window.location.href = "dashboard.html";
+            //     }
+            // };
+            // redirectUser(data.role);
+            window.location.href = "dashboard.html";
 
         } catch (err) {
             showMsg(

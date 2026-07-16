@@ -46,7 +46,7 @@ function updateUserUI() {
 
   const avatarUrl = userData.picture 
     ? userData.picture 
-    : `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=7f265b&color=fff`;
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name)}&background=0d6efd&color=fff`;
 
   if (userAvatar) userAvatar.src = avatarUrl;
 }
