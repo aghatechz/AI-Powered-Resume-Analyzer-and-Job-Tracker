@@ -53,7 +53,7 @@ body {
 }
 
 /* Touch-friendly tap targets */
-button, a, input, select, textarea {
+button, a, input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   min-height: 44px;
   min-width: 44px;
 }
